@@ -1,0 +1,142 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="FiltrumMasterpage.master.cs" Inherits="FiltrumMasterpage"  %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"  >
+<head runat="server">
+    <title>Untitled Page</title>
+    <script type="text/javascript" language="javascript">
+            javascript:window.history.forward(1);
+    </script>
+    
+    
+</head>
+<body >
+    <form id="form1" runat="server" >
+    <div>
+        <table width="100%" border="1" >
+            <tr>
+           <td colspan="3" style="height: 62px; background-color: lavender; text-align: right;" >
+           
+           <table width="100%">
+           
+           <tr>
+           <td style="width: 154px; height: 43px" valign="top">
+               <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logo_1.jpg" /></td>
+           <td style="width: 71%; height: 43px; text-align: left;">
+               <strong><span style="font-size: 24pt"><span style="font-family: Haettenschweiler; background-color: lavender;">Filtrum
+                   Fibretechnologies Private Limited<br />
+                   <br />
+                   <span style="color: midnightblue; text-decoration: underline">Invoice System</span></span></span></strong><span
+                       style="color: midnightblue"> &nbsp; </span>
+           </td>
+               <td style="width: 71%; height: 43px; text-align: left" valign="bottom">
+                   <span style="font-size: 10pt; font-family: Verdana">Welcome,<asp:Label ID="lblUserName" runat="server" Font-Bold="True" Font-Names="Verdana" Font-Size="10pt"
+                   Text="user"></asp:Label>&nbsp;</span></td>
+               <td style="width: 51%; height: 43px; text-align: right" valign="baseline">
+                   <asp:Image ID="Image3" runat="server" Height="135px" ImageUrl="~/Images/filtrum.jpg" /></td>
+               <td style="width: 50%; height: 43px; text-align: right" valign="top">
+                   <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/paper.jpg" /></td>
+           
+           </tr>
+           
+           </table>
+               <span style="font-size: 10pt; font-family: Verdana"> </span>
+           
+           </td>
+           
+           
+            </tr>
+            
+            <tr>
+            
+            <td style="width: 8%; background-color: lavender;" valign="top" >
+            <asp:Menu ID="mainMenu" runat="server" BackColor="#E0E0E0" DynamicHorizontalOffset="2"
+              Font-Names="Verdana" Font-Size="Small" ForeColor="Navy" Height="439px" StaticSubMenuIndent="10px"
+              Width="159px" BorderStyle="None" Font-Bold="True" Font-Overline="False" Font-Strikeout="False" Font-Underline="False">
+              <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+              <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
+              <DynamicMenuStyle BackColor="#B5C7DE" />
+              <StaticSelectedStyle BackColor="#507CD1" />
+              <DynamicSelectedStyle BackColor="#507CD1" />
+              <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+              <Items>
+                  <asp:MenuItem Text="Customer Management" Value="Customer Management">
+                      <asp:MenuItem NavigateUrl="~/UI/CustomerManagement.aspx" Text="Add Customer" Value="Add Customer">
+                      </asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ViewCustomers.aspx?op=edit" Text="Modify Customer" Value="Modify Customer">
+                      </asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ViewCustomers.aspx?op=view" Text="View Customers" Value="View Customers">
+                      </asp:MenuItem>
+                  </asp:MenuItem>
+                  <asp:MenuItem Text="Product Management" Value="Product Management">
+                      <asp:MenuItem NavigateUrl="~/UI/ProductManagement.aspx" Text="Add Product" Value="Add Product">
+                      </asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ViewProducts.aspx?prodOperation=edit" Text="Modify Product" Value="Modify Product">
+                      </asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ViewProducts.aspx?prodOperation=view" Text="View Products" Value="View Products">
+                      </asp:MenuItem>
+                  </asp:MenuItem>
+                  <asp:MenuItem Text="PO Management" Value="Purchase Order Management" NavigateUrl="~/UI/PurchaseOrderManagement.aspx">
+                      <asp:MenuItem NavigateUrl="~/UI/PurchaseOrderManagement.aspx" Text="Add Purchase Order"
+                          Value="Add Purchase Order"></asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ViewPurchaseOrders.aspx" Text="View Purchase Orders"
+                          Value="View Purchase Orders"></asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ViewPOItems.aspx" Text="View POItems" Value="View POItems">
+                      </asp:MenuItem>
+                  </asp:MenuItem>
+                  <asp:MenuItem Text="Invoice Management" Value="Invoice Management" NavigateUrl="~/UI/InvoiceManagement.aspx">
+                      <asp:MenuItem NavigateUrl="~/UI/InvoiceManagement.aspx" Text="Create Invoice" Value="Create Invoice">
+                      </asp:MenuItem>
+                  </asp:MenuItem>
+                  <asp:MenuItem Text="Reports" Value="Reports">
+                      <asp:MenuItem NavigateUrl="~/UI/ReportCustomerDetails.aspx" Text="Customer Details"
+                          Value="Customer Details"></asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ReportProductDetails.aspx" Text="Product Details"
+                          Value="Product Details"></asp:MenuItem>
+                      <asp:MenuItem Text="PO Details" Value="PO Details" NavigateUrl="~/UI/ViewPurchaseOrders.aspx"></asp:MenuItem>
+                  </asp:MenuItem>
+                  <asp:MenuItem Text="User/Roles Management" Value="User/Roles Management">
+                      <asp:MenuItem NavigateUrl="~/UI/UserRoleManagement.aspx" Text="Add New User" Value="Add New User">
+                      </asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/UserRoleManagement.aspx" Text="Modify User" Value="Modify User">
+                      </asp:MenuItem>
+                      <asp:MenuItem NavigateUrl="~/UI/ViewUsers.aspx" Text="View All Users" Value="View All Users">
+                      </asp:MenuItem>
+                  </asp:MenuItem>
+                  <asp:MenuItem Text="Logout" Value="Logout" NavigateUrl="~/LogOut.aspx"></asp:MenuItem>
+              </Items>
+              <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+          </asp:Menu>
+            </td>
+            <td  colspan="2" valign="top" style="background-color: lavender">
+            
+            <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+        </asp:contentplaceholder>
+            
+             </td>
+            </tr>
+            
+            
+            <tr>
+            
+            <td colspan="3" style="text-align: center; background-color: lightgrey;">
+                <span lang="EN-GB" style="font-size: 12pt; font-family: 'Times New Roman'; mso-fareast-font-family: 'Times New Roman';
+                    mso-ansi-language: EN-GB; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+                    <span style="mso-spacerun: yes">&nbsp; &nbsp; &nbsp; &nbsp;<span style="font-size: 10pt;
+                        font-family: Verdana">&nbsp; </span></span><span style="font-size: 10pt; font-family: Verdana">
+                            Copyright
+                    © 2008 AVC Softwares. All Rights Reserved. </span></span>
+            </td>
+            </tr>
+            
+            
+        </table>
+    
+    
+
+    </div>
+    </form>
+</body>
+</html>
+

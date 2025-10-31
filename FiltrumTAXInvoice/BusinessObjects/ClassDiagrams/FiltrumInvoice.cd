@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="FiltrumTaxInvoice.BusinessObjects.BO.Customer">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>BO\Customer.cs</FileName>
+      <HashCode>IAAQSAAAUAAoAEAAcBAACAgAwEAAQOAIAEAAAAAAAEg=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="hasPOs" />
+      <Property Name="hasInvoices" />
+    </ShowAsAssociation>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="hasInvoices" Type="FiltrumTaxInvoice.BusinessObjects.BO.Invoice">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="2.87" Y="0.081" Height="0.16" Width="1.367" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="FiltrumTaxInvoice.BusinessObjects.BO.PurchaseOrder">
+    <Position X="3" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>BO\PurchaseOrder.cs</FileName>
+      <HashCode>AAAAIAAAQAAgACAQAAAAAAAAACAIAAAAEQAAAAgAQAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="hasPOItems" />
+    </ShowAsAssociation>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="hasPOItems" Type="FiltrumTaxInvoice.BusinessObjects.BO.POItem">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.183" Y="-0.367" Height="0.16" Width="1.113" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="FiltrumTaxInvoice.BusinessObjects.BO.Product">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>BO\Product.cs</FileName>
+      <HashCode>AAAgAAAAAAAgAAAAIAAABAAAAAAAAAAAAAgAAAAIIAA=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Class Name="FiltrumTaxInvoice.BusinessObjects.BO.POItem">
+    <Position X="5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>BO\POItem.cs</FileName>
+      <HashCode>IAAgAAAACAAAAAgAACAIgAAAAAAgAACIIAAACAAAIAA=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Class Name="FiltrumTaxInvoice.BusinessObjects.BO.Invoice">
+    <Position X="7.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>BO\Invoice.cs</FileName>
+      <HashCode>IAgYPCBEcAQpREggUAQIEAkEYKAAZGCIAWwAAAEIQBA=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Class Name="FiltrumTaxInvoice.BusinessObjects.BO.User">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>BO\User.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAgAAAAACAACAQgAAgEAAAA=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Enum Name="FiltrumTaxInvoice.BusinessObjects.Common.UserType">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Common\UserType.cs</FileName>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+</ClassDiagram>

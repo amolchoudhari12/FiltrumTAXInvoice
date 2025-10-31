@@ -1,0 +1,3201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DummyDataSource">
+      <ConnectionProperties>
+        <ConnectString />
+        <DataProvider>SQL</DataProvider>
+      </ConnectionProperties>
+      <rd:DataSourceID>cfaf738c-7019-4cc7-8b0f-a58094e26381</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <BottomMargin>1in</BottomMargin>
+  <RightMargin>1in</RightMargin>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ColumnSpacing>0in</ColumnSpacing>
+    <ReportItems>
+      <Textbox Name="textbox5">
+        <Left>1in</Left>
+        <Top>3.5in</Top>
+        <ZIndex>81</ZIndex>
+        <Width>0.25in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>%</Value>
+      </Textbox>
+      <Textbox Name="textbox4">
+        <Left>6.75in</Left>
+        <Top>7.875in</Top>
+        <ZIndex>80</ZIndex>
+        <Width>0.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>%</Value>
+      </Textbox>
+      <Textbox Name="ItemTotalAmount_2">
+        <Left>6.875in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>ItemTotalAmount_2</rd:DefaultName>
+        <ZIndex>79</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=FormatNumber(Sum(Fields!ItemTotalAmount.Value, "POItem11"),2)</Value>
+      </Textbox>
+      <Textbox Name="PriceRate_2">
+        <Left>5.75in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>PriceRate_2</rd:DefaultName>
+        <ZIndex>78</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!PriceRate.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="UnitOfMesurement_2">
+        <Left>5in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>UnitOfMesurement_2</rd:DefaultName>
+        <ZIndex>77</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!UnitOfMesurement.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="NumberOfQuantity_2">
+        <Left>3.75in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>NumberOfQuantity_2</rd:DefaultName>
+        <ZIndex>76</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!NumberOfQuantity.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="DescriptionOfPackages_2">
+        <Left>3.125in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>DescriptionOfPackages_2</rd:DefaultName>
+        <ZIndex>75</ZIndex>
+        <Width>0.625in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!DescriptionOfPackages.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="CustomerPartNumber_2">
+        <Left>1.25in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>CustomerPartNumber_2</rd:DefaultName>
+        <ZIndex>74</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!CustomerPartNumber.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="FFTLPartNumber_2">
+        <Left>2.125in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>FFTLPartNumber_2</rd:DefaultName>
+        <ZIndex>73</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!FFTLPartNumber.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="ProductName_3">
+        <Left>0.125in</Left>
+        <Top>5.875in</Top>
+        <rd:DefaultName>ProductName_3</rd:DefaultName>
+        <ZIndex>72</ZIndex>
+        <Width>1.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!ProductName.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="POItemID_2">
+        <Top>5.875in</Top>
+        <rd:DefaultName>POItemID_2</rd:DefaultName>
+        <ZIndex>71</ZIndex>
+        <Width>0.125in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=Sum(Fields!POItemID.Value, "POItem11")</Value>
+      </Textbox>
+      <Textbox Name="ItemTotalAmount_1">
+        <Left>6.875in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>ItemTotalAmount_1</rd:DefaultName>
+        <ZIndex>70</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=FormatNumber(Sum(Fields!ItemTotalAmount.Value, "POItem10"),2)</Value>
+      </Textbox>
+      <Textbox Name="PriceRate_1">
+        <Left>5.75in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>PriceRate_1</rd:DefaultName>
+        <ZIndex>69</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!PriceRate.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="UnitOfMesurement_1">
+        <Left>5in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>UnitOfMesurement_1</rd:DefaultName>
+        <ZIndex>68</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!UnitOfMesurement.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="NumberOfQuantity_1">
+        <Left>3.75in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>NumberOfQuantity_1</rd:DefaultName>
+        <ZIndex>67</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!NumberOfQuantity.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="DescriptionOfPackages_1">
+        <Left>3.125in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>DescriptionOfPackages_1</rd:DefaultName>
+        <ZIndex>66</ZIndex>
+        <Width>0.625in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!DescriptionOfPackages.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="FFTLPartNumber_1">
+        <Left>2.125in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>FFTLPartNumber_1</rd:DefaultName>
+        <ZIndex>65</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!FFTLPartNumber.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="CustomerPartNumber_1">
+        <Left>1.25in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>CustomerPartNumber_1</rd:DefaultName>
+        <ZIndex>64</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!CustomerPartNumber.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="ProductName_2">
+        <Left>0.125in</Left>
+        <Top>5.5in</Top>
+        <rd:DefaultName>ProductName_2</rd:DefaultName>
+        <ZIndex>63</ZIndex>
+        <Width>1.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!ProductName.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="POItemID_1">
+        <Top>5.5in</Top>
+        <rd:DefaultName>POItemID_1</rd:DefaultName>
+        <ZIndex>62</ZIndex>
+        <Width>0.125in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=Sum(Fields!POItemID.Value, "POItem10")</Value>
+      </Textbox>
+      <Textbox Name="ItemTotalAmount">
+        <Left>6.875in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>ItemTotalAmount</rd:DefaultName>
+        <ZIndex>61</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=FormatNumber(Sum(Fields!ItemTotalAmount.Value, "POItem9"),2)</Value>
+      </Textbox>
+      <Textbox Name="PriceRate">
+        <Left>5.75in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>PriceRate</rd:DefaultName>
+        <ZIndex>60</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!PriceRate.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="UnitOfMesurement">
+        <Left>5in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>UnitOfMesurement</rd:DefaultName>
+        <ZIndex>59</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!UnitOfMesurement.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="NumberOfQuantity">
+        <Left>3.75in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>NumberOfQuantity</rd:DefaultName>
+        <ZIndex>58</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!NumberOfQuantity.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="DescriptionOfPackages">
+        <Left>3.125in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>DescriptionOfPackages</rd:DefaultName>
+        <ZIndex>57</ZIndex>
+        <Width>0.625in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!DescriptionOfPackages.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="FFTLPartNumber">
+        <Left>2.125in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>FFTLPartNumber</rd:DefaultName>
+        <ZIndex>56</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!FFTLPartNumber.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="CustomerPartNumber">
+        <Left>1.25in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>CustomerPartNumber</rd:DefaultName>
+        <ZIndex>55</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!CustomerPartNumber.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="ProductName">
+        <Left>0.125in</Left>
+        <Top>5.125in</Top>
+        <rd:DefaultName>ProductName</rd:DefaultName>
+        <ZIndex>54</ZIndex>
+        <Width>1.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!ProductName.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="POItemID">
+        <Top>5.125in</Top>
+        <rd:DefaultName>POItemID</rd:DefaultName>
+        <ZIndex>53</ZIndex>
+        <Width>0.125in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=Sum(Fields!POItemID.Value, "POItem9")</Value>
+      </Textbox>
+      <Textbox Name="ItemTotalAmount_4">
+        <Left>6.875in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>ItemTotalAmount_4</rd:DefaultName>
+        <ZIndex>52</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=FormatNumber(Sum(Fields!ItemTotalAmount.Value, "POItem8"),2)</Value>
+      </Textbox>
+      <Textbox Name="PriceRate_4">
+        <Left>5.75in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>PriceRate_4</rd:DefaultName>
+        <ZIndex>51</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!PriceRate.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="UnitOfMesurement_4">
+        <Left>5in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>UnitOfMesurement_4</rd:DefaultName>
+        <ZIndex>50</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!UnitOfMesurement.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="NumberOfQuantity_4">
+        <Left>3.75in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>NumberOfQuantity_4</rd:DefaultName>
+        <ZIndex>49</ZIndex>
+        <Width>0.75in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=Sum(Fields!NumberOfQuantity.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="DescriptionOfPackages_4">
+        <Left>3.125in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>DescriptionOfPackages_4</rd:DefaultName>
+        <ZIndex>48</ZIndex>
+        <Width>0.625in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!DescriptionOfPackages.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="FFTLPartNumber_4">
+        <Left>2.125in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>FFTLPartNumber_4</rd:DefaultName>
+        <ZIndex>47</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!FFTLPartNumber.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="ProductName_5">
+        <Left>0.125in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>ProductName_5</rd:DefaultName>
+        <ZIndex>46</ZIndex>
+        <Width>1.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!ProductName.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="CustomerPartNumber_4">
+        <Left>1.25in</Left>
+        <Top>4.75in</Top>
+        <rd:DefaultName>CustomerPartNumber_4</rd:DefaultName>
+        <ZIndex>45</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!CustomerPartNumber.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="textbox3">
+        <Left>2.125in</Left>
+        <Top>4.5in</Top>
+        <ZIndex>44</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>FFTL Part No</Value>
+      </Textbox>
+      <Textbox Name="textbox2">
+        <Left>1.25in</Left>
+        <Top>4.5in</Top>
+        <ZIndex>43</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>Customer Part No</Value>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <Left>0.125in</Left>
+        <Top>4.5in</Top>
+        <ZIndex>42</ZIndex>
+        <Width>1.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>Product Name</Value>
+      </Textbox>
+      <Textbox Name="POItemID_4">
+        <Top>4.75in</Top>
+        <rd:DefaultName>POItemID_4</rd:DefaultName>
+        <ZIndex>41</ZIndex>
+        <Width>0.125in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=Sum(Fields!POItemID.Value, "POItem8")</Value>
+      </Textbox>
+      <Textbox Name="GrossAmount">
+        <Left>6.875in</Left>
+        <Top>8.375in</Top>
+        <rd:DefaultName>GrossAmount</rd:DefaultName>
+        <ZIndex>40</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=FormatNumber(Sum(Fields!GrossAmount.Value, "Invoice6"),2)</Value>
+      </Textbox>
+      <Line Name="line2">
+        <Left>6.875in</Left>
+        <Top>8.25in</Top>
+        <ZIndex>39</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+          <BorderWidth>
+            <Default>1.5pt</Default>
+          </BorderWidth>
+        </Style>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="NetTotal">
+        <Left>6.875in</Left>
+        <Top>7.875in</Top>
+        <rd:DefaultName>NetTotal</rd:DefaultName>
+        <ZIndex>38</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=FormatNumber(Sum(Fields!NetTotal.Value, "Duties2"),2)</Value>
+      </Textbox>
+      <Line Name="line1">
+        <Left>7.875in</Left>
+        <Top>7.75in</Top>
+        <ZIndex>37</ZIndex>
+        <Width>-1in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+          <BorderWidth>
+            <Default>1.5pt</Default>
+          </BorderWidth>
+        </Style>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="ExsiceDuty">
+        <Left>4.625in</Left>
+        <Top>6.75in</Top>
+        <rd:DefaultName>ExsiceDuty</rd:DefaultName>
+        <ZIndex>36</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=FormatNumber(Sum(Fields!ExsiceDuty.Value, "Invoice5"),2)</Value>
+      </Textbox>
+      <Textbox Name="InvoiceDate">
+        <Left>7.125in</Left>
+        <Top>0.125in</Top>
+        <rd:DefaultName>InvoiceDate</rd:DefaultName>
+        <ZIndex>35</ZIndex>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!InvoiceDate.Value, "Invoice4")</Value>
+      </Textbox>
+      <Textbox Name="VATRate">
+        <Left>6.375in</Left>
+        <Top>7.875in</Top>
+        <rd:DefaultName>VATRate</rd:DefaultName>
+        <ZIndex>34</ZIndex>
+        <Width>0.375in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!VATRate.Value, "Duties1")</Value>
+      </Textbox>
+      <Textbox Name="SHCessRate">
+        <Left>6.625in</Left>
+        <Top>7.5in</Top>
+        <rd:DefaultName>SHCessRate</rd:DefaultName>
+        <ZIndex>33</ZIndex>
+        <Width>0.375in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!SHCessRate.Value, "Duties1")</Value>
+      </Textbox>
+      <Textbox Name="ECessRate">
+        <Left>6.5in</Left>
+        <Top>7.25in</Top>
+        <rd:DefaultName>ECessRate</rd:DefaultName>
+        <ZIndex>32</ZIndex>
+        <Width>0.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!ECessRate.Value, "Duties1")</Value>
+      </Textbox>
+      <Textbox Name="CessRate">
+        <Left>6.5in</Left>
+        <Top>7in</Top>
+        <rd:DefaultName>CessRate</rd:DefaultName>
+        <ZIndex>31</ZIndex>
+        <Width>0.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!CessRate.Value, "Duties1")</Value>
+      </Textbox>
+      <Textbox Name="ExciseRate">
+        <Left>6.5in</Left>
+        <Top>6.75in</Top>
+        <rd:DefaultName>ExciseRate</rd:DefaultName>
+        <ZIndex>30</ZIndex>
+        <Width>0.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!ExciseRate.Value, "Duties1")</Value>
+      </Textbox>
+      <Textbox Name="ProductName_1">
+        <Left>0.125in</Left>
+        <Top>2.75in</Top>
+        <rd:DefaultName>ProductName_1</rd:DefaultName>
+        <ZIndex>29</ZIndex>
+        <Width>1.375in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!ProductName.Value, "POItem2")</Value>
+      </Textbox>
+      <Textbox Name="ECCNum">
+        <Left>4.75in</Left>
+        <Top>3.625in</Top>
+        <rd:DefaultName>ECCNum</rd:DefaultName>
+        <ZIndex>28</ZIndex>
+        <Width>1.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!ECCNum.Value, "Invoice3")</Value>
+      </Textbox>
+      <Textbox Name="ChapterHeading1">
+        <Left>0.125in</Left>
+        <Top>3.25in</Top>
+        <rd:DefaultName>ChapterHeading1</rd:DefaultName>
+        <ZIndex>27</ZIndex>
+        <Width>1.75in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!ChapterHeading1.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="RateOfDuty">
+        <Left>0.625in</Left>
+        <Top>3.5in</Top>
+        <rd:DefaultName>RateOfDuty</rd:DefaultName>
+        <ZIndex>26</ZIndex>
+        <Width>0.375in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <Direction>RTL</Direction>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!RateOfDuty.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="GrossAmountInWords">
+        <Left>1.625in</Left>
+        <Top>8.25in</Top>
+        <rd:DefaultName>GrossAmountInWords</rd:DefaultName>
+        <ZIndex>25</ZIndex>
+        <Width>4.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!GrossAmountInWords.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="RemovalTime">
+        <Left>3.625in</Left>
+        <Top>7.625in</Top>
+        <rd:DefaultName>RemovalTime</rd:DefaultName>
+        <ZIndex>24</ZIndex>
+        <Width>1.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!RemovalTime.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="InvoiceTime">
+        <Left>3.625in</Left>
+        <Top>7.5in</Top>
+        <rd:DefaultName>InvoiceTime</rd:DefaultName>
+        <ZIndex>23</ZIndex>
+        <Width>1.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!InvoiceTime.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="ExciseAmountInWords">
+        <Left>0.125in</Left>
+        <CanShrink>true</CanShrink>
+        <Top>6.75in</Top>
+        <rd:DefaultName>ExciseAmountInWords</rd:DefaultName>
+        <ZIndex>22</ZIndex>
+        <Width>4.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.375in</Height>
+        <Value>=First(Fields!ExciseAmountInWords.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="VATDuty">
+        <Left>7in</Left>
+        <Top>8in</Top>
+        <rd:DefaultName>VATDuty</rd:DefaultName>
+        <ZIndex>21</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=FormatNumber(Sum(Fields!VATDuty.Value, "Invoice1"),2)</Value>
+      </Textbox>
+      <Textbox Name="VehicleNumber">
+        <Left>6.25in</Left>
+        <Top>3.375in</Top>
+        <rd:DefaultName>VehicleNumber</rd:DefaultName>
+        <ZIndex>20</ZIndex>
+        <Width>1.375in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!VehicleNumber.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="TranseportMode">
+        <Left>5in</Left>
+        <Top>3.125in</Top>
+        <rd:DefaultName>TranseportMode</rd:DefaultName>
+        <ZIndex>19</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!TranseportMode.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="PODate">
+        <Left>6.25in</Left>
+        <Top>2.875in</Top>
+        <rd:DefaultName>PODate</rd:DefaultName>
+        <ZIndex>18</ZIndex>
+        <Width>1.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!PODate.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="POCode">
+        <Left>5.125in</Left>
+        <Top>2.875in</Top>
+        <rd:DefaultName>POCode</rd:DefaultName>
+        <ZIndex>17</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!POCode.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="CustomerCode">
+        <Left>4.5in</Left>
+        <Top>1.875in</Top>
+        <rd:DefaultName>CustomerCode</rd:DefaultName>
+        <ZIndex>16</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=Sum(Fields!CustomerCode.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="ShippingAddress">
+        <Left>5.375in</Left>
+        <Top>1in</Top>
+        <rd:DefaultName>ShippingAddress</rd:DefaultName>
+        <ZIndex>15</ZIndex>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <Height>0.75in</Height>
+        <Value>=First(Fields!ShippingAddress.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="BillingAddress">
+        <Left>1.875in</Left>
+        <Top>1in</Top>
+        <rd:DefaultName>BillingAddress</rd:DefaultName>
+        <ZIndex>14</ZIndex>
+        <Width>3.25in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <Height>0.75in</Height>
+        <Value>=First(Fields!BillingAddress.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="SerialNumber">
+        <Left>5in</Left>
+        <rd:DefaultName>SerialNumber</rd:DefaultName>
+        <ZIndex>13</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontWeight>700</FontWeight>
+          <FontSize>12pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!SerialNumber.Value, "Invoice")</Value>
+      </Textbox>
+      <Textbox Name="textbox31">
+        <Left>0.625in</Left>
+        <Top>7.5in</Top>
+        <ZIndex>12</ZIndex>
+        <Width>1.75in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!InvoiceDate.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="textbox35">
+        <Left>0.625in</Left>
+        <Top>7.625in</Top>
+        <ZIndex>11</ZIndex>
+        <Width>1.75in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!RemovalDate.Value, "Invoice2")</Value>
+      </Textbox>
+      <Textbox Name="textbox36">
+        <Left>6in</Left>
+        <Top>6.75in</Top>
+        <ZIndex>10</ZIndex>
+        <Width>0.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>Excise</Value>
+      </Textbox>
+      <Textbox Name="textbox37">
+        <Left>6in</Left>
+        <Top>6.625in</Top>
+        <ZIndex>9</ZIndex>
+        <Width>1in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>Net Value:</Value>
+      </Textbox>
+      <Textbox Name="textbox38">
+        <Left>7in</Left>
+        <Top>6.625in</Top>
+        <ZIndex>8</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=FormatNumber(Sum(Fields!NetValue.Value, "Invoice1"),2)</Value>
+      </Textbox>
+      <Textbox Name="textbox39">
+        <Left>7in</Left>
+        <Top>6.75in</Top>
+        <ZIndex>7</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=FormatNumber(Sum(Fields!ExsiceDuty.Value, "Invoice1"),2)</Value>
+      </Textbox>
+      <Textbox Name="textbox46">
+        <Left>6in</Left>
+        <Top>7in</Top>
+        <ZIndex>6</ZIndex>
+        <Width>0.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>Cess </Value>
+      </Textbox>
+      <Textbox Name="textbox47">
+        <Left>7in</Left>
+        <Top>7in</Top>
+        <ZIndex>5</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=FormatNumber(Sum(Fields!CessDuty.Value, "Invoice1"),2)</Value>
+      </Textbox>
+      <Textbox Name="textbox48">
+        <Left>6in</Left>
+        <Top>7.25in</Top>
+        <ZIndex>4</ZIndex>
+        <Width>0.5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>E.Cess</Value>
+      </Textbox>
+      <Textbox Name="textbox49">
+        <Left>7in</Left>
+        <Top>7.25in</Top>
+        <ZIndex>3</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=FormatNumber(Sum(Fields!EcessDuty.Value, "Invoice1"),2)</Value>
+      </Textbox>
+      <Textbox Name="textbox50">
+        <Left>7in</Left>
+        <Top>7.5in</Top>
+        <ZIndex>2</ZIndex>
+        <Width>0.875in</Width>
+        <Style>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=FormatNumber(Sum(Fields!SHCessDuty.Value, "Invoice1"),2)</Value>
+      </Textbox>
+      <Textbox Name="textbox51">
+        <Left>6in</Left>
+        <Top>7.5in</Top>
+        <ZIndex>1</ZIndex>
+        <Width>0.625in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>SHCess</Value>
+      </Textbox>
+      <Textbox Name="textbox52">
+        <Left>6in</Left>
+        <Top>7.875in</Top>
+        <Width>0.375in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>VAT/
+CST</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>23.49206cm</Height>
+  </Body>
+  <PageHeader>
+    <Height>0.25in</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+  </PageHeader>
+  <rd:ReportID>bf7d4819-13f9-4862-a1e5-6cd06a792bad</rd:ReportID>
+  <LeftMargin>1in</LeftMargin>
+  <DataSets>
+    <DataSet Name="Invoice">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetInvoices</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.0lc7iab-, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="SerialNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SerialNumber</DataField>
+        </Field>
+        <Field Name="UserName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="MashineName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>MashineName</DataField>
+        </Field>
+        <Field Name="InvoiceCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>InvoiceCode</DataField>
+        </Field>
+        <Field Name="CustomerCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerCode</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="BillingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>BillingAddress</DataField>
+        </Field>
+        <Field Name="ShippingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ShippingAddress</DataField>
+        </Field>
+        <Field Name="GrossAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>GrossAmount</DataField>
+        </Field>
+        <Field Name="RateOfDuty">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>RateOfDuty</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChapterHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading2</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="TranseportMode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>TranseportMode</DataField>
+        </Field>
+        <Field Name="POCode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>POCode</DataField>
+        </Field>
+        <Field Name="PODate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="RemovalDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalDate</DataField>
+        </Field>
+        <Field Name="InvoiceTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceTime</DataField>
+        </Field>
+        <Field Name="ECCNum">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECCNum</DataField>
+        </Field>
+        <Field Name="VehicleNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VehicleNumber</DataField>
+        </Field>
+        <Field Name="POItems">
+          <rd:TypeName>System.Collections.Generic.List`1[FiltrumTaxInvoice.BusinessObjects.BO.POItem]</rd:TypeName>
+          <DataField>POItems</DataField>
+        </Field>
+        <Field Name="NetValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetValue</DataField>
+        </Field>
+        <Field Name="ExsiceDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ExsiceDuty</DataField>
+        </Field>
+        <Field Name="CessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CessDuty</DataField>
+        </Field>
+        <Field Name="EcessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EcessDuty</DataField>
+        </Field>
+        <Field Name="SHCessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>SHCessDuty</DataField>
+        </Field>
+        <Field Name="VATDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>VATDuty</DataField>
+        </Field>
+        <Field Name="ExciseAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseAmountInWords</DataField>
+        </Field>
+        <Field Name="GrossAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>GrossAmountInWords</DataField>
+        </Field>
+        <Field Name="RemovalTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalTime</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceDate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.0lc7iab-, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem1">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.225abfh1, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Invoice1">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetInvoices</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.225abfh1, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="SerialNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SerialNumber</DataField>
+        </Field>
+        <Field Name="UserName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="MashineName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>MashineName</DataField>
+        </Field>
+        <Field Name="InvoiceCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>InvoiceCode</DataField>
+        </Field>
+        <Field Name="CustomerCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerCode</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="BillingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>BillingAddress</DataField>
+        </Field>
+        <Field Name="ShippingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ShippingAddress</DataField>
+        </Field>
+        <Field Name="GrossAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>GrossAmount</DataField>
+        </Field>
+        <Field Name="RateOfDuty">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>RateOfDuty</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChapterHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading2</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="TranseportMode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>TranseportMode</DataField>
+        </Field>
+        <Field Name="POCode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>POCode</DataField>
+        </Field>
+        <Field Name="PODate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="RemovalDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalDate</DataField>
+        </Field>
+        <Field Name="InvoiceTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceTime</DataField>
+        </Field>
+        <Field Name="ECCNum">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECCNum</DataField>
+        </Field>
+        <Field Name="VehicleNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VehicleNumber</DataField>
+        </Field>
+        <Field Name="POItems">
+          <rd:TypeName>System.Collections.Generic.List`1[FiltrumTaxInvoice.BusinessObjects.BO.POItem]</rd:TypeName>
+          <DataField>POItems</DataField>
+        </Field>
+        <Field Name="NetValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetValue</DataField>
+        </Field>
+        <Field Name="ExsiceDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ExsiceDuty</DataField>
+        </Field>
+        <Field Name="CessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CessDuty</DataField>
+        </Field>
+        <Field Name="EcessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EcessDuty</DataField>
+        </Field>
+        <Field Name="SHCessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>SHCessDuty</DataField>
+        </Field>
+        <Field Name="VATDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>VATDuty</DataField>
+        </Field>
+        <Field Name="ExciseAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseAmountInWords</DataField>
+        </Field>
+        <Field Name="GrossAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>GrossAmountInWords</DataField>
+        </Field>
+        <Field Name="RemovalTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalTime</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceDate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Invoice2">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetInvoices</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.j0ult9q5, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="SerialNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SerialNumber</DataField>
+        </Field>
+        <Field Name="UserName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="MashineName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>MashineName</DataField>
+        </Field>
+        <Field Name="InvoiceCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>InvoiceCode</DataField>
+        </Field>
+        <Field Name="CustomerCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerCode</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="BillingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>BillingAddress</DataField>
+        </Field>
+        <Field Name="ShippingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ShippingAddress</DataField>
+        </Field>
+        <Field Name="GrossAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>GrossAmount</DataField>
+        </Field>
+        <Field Name="RateOfDuty">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>RateOfDuty</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChapterHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading2</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="TranseportMode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>TranseportMode</DataField>
+        </Field>
+        <Field Name="POCode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>POCode</DataField>
+        </Field>
+        <Field Name="PODate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="RemovalDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalDate</DataField>
+        </Field>
+        <Field Name="InvoiceTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceTime</DataField>
+        </Field>
+        <Field Name="ECCNum">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECCNum</DataField>
+        </Field>
+        <Field Name="VehicleNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VehicleNumber</DataField>
+        </Field>
+        <Field Name="POItems">
+          <rd:TypeName>System.Collections.Generic.List`1[FiltrumTaxInvoice.BusinessObjects.BO.POItem]</rd:TypeName>
+          <DataField>POItems</DataField>
+        </Field>
+        <Field Name="NetValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetValue</DataField>
+        </Field>
+        <Field Name="ExsiceDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ExsiceDuty</DataField>
+        </Field>
+        <Field Name="CessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CessDuty</DataField>
+        </Field>
+        <Field Name="EcessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EcessDuty</DataField>
+        </Field>
+        <Field Name="SHCessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>SHCessDuty</DataField>
+        </Field>
+        <Field Name="VATDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>VATDuty</DataField>
+        </Field>
+        <Field Name="ExciseAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseAmountInWords</DataField>
+        </Field>
+        <Field Name="GrossAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>GrossAmountInWords</DataField>
+        </Field>
+        <Field Name="RemovalTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalTime</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceDate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Invoice3">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetInvoices</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.ogj95m1p, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="SerialNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SerialNumber</DataField>
+        </Field>
+        <Field Name="UserName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="MashineName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>MashineName</DataField>
+        </Field>
+        <Field Name="InvoiceCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>InvoiceCode</DataField>
+        </Field>
+        <Field Name="CustomerCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerCode</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="BillingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>BillingAddress</DataField>
+        </Field>
+        <Field Name="ShippingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ShippingAddress</DataField>
+        </Field>
+        <Field Name="GrossAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>GrossAmount</DataField>
+        </Field>
+        <Field Name="RateOfDuty">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>RateOfDuty</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChapterHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading2</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="TranseportMode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>TranseportMode</DataField>
+        </Field>
+        <Field Name="POCode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>POCode</DataField>
+        </Field>
+        <Field Name="PODate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="RemovalDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalDate</DataField>
+        </Field>
+        <Field Name="InvoiceTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceTime</DataField>
+        </Field>
+        <Field Name="ECCNum">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECCNum</DataField>
+        </Field>
+        <Field Name="VehicleNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VehicleNumber</DataField>
+        </Field>
+        <Field Name="POItems">
+          <rd:TypeName>System.Collections.Generic.List`1[FiltrumTaxInvoice.BusinessObjects.BO.POItem]</rd:TypeName>
+          <DataField>POItems</DataField>
+        </Field>
+        <Field Name="NetValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetValue</DataField>
+        </Field>
+        <Field Name="ExsiceDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ExsiceDuty</DataField>
+        </Field>
+        <Field Name="CessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CessDuty</DataField>
+        </Field>
+        <Field Name="EcessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EcessDuty</DataField>
+        </Field>
+        <Field Name="SHCessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>SHCessDuty</DataField>
+        </Field>
+        <Field Name="VATDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>VATDuty</DataField>
+        </Field>
+        <Field Name="ExciseAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseAmountInWords</DataField>
+        </Field>
+        <Field Name="GrossAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>GrossAmountInWords</DataField>
+        </Field>
+        <Field Name="RemovalTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalTime</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceDate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem2">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.i6oyciz-, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Duties">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetDuties</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.xalnebeq, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="CessRate">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>CessRate</DataField>
+        </Field>
+        <Field Name="ECessRate">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>ECessRate</DataField>
+        </Field>
+        <Field Name="ExciseRate">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>ExciseRate</DataField>
+        </Field>
+        <Field Name="SHCessRate">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>SHCessRate</DataField>
+        </Field>
+        <Field Name="VATRate">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>VATRate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Duties1">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetDuties</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.m2zt_fmp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="CessRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CessRate</DataField>
+        </Field>
+        <Field Name="ECessRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECessRate</DataField>
+        </Field>
+        <Field Name="ExciseRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseRate</DataField>
+        </Field>
+        <Field Name="SHCessRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SHCessRate</DataField>
+        </Field>
+        <Field Name="VATRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VATRate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem3">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.m2zt_fmp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Invoice4">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetInvoices</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.iclq2wyv, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="SerialNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SerialNumber</DataField>
+        </Field>
+        <Field Name="UserName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="MashineName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>MashineName</DataField>
+        </Field>
+        <Field Name="InvoiceCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>InvoiceCode</DataField>
+        </Field>
+        <Field Name="CustomerCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerCode</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="BillingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>BillingAddress</DataField>
+        </Field>
+        <Field Name="ShippingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ShippingAddress</DataField>
+        </Field>
+        <Field Name="GrossAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>GrossAmount</DataField>
+        </Field>
+        <Field Name="RateOfDuty">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>RateOfDuty</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChapterHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading2</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="TranseportMode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>TranseportMode</DataField>
+        </Field>
+        <Field Name="POCode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>POCode</DataField>
+        </Field>
+        <Field Name="PODate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="RemovalDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalDate</DataField>
+        </Field>
+        <Field Name="InvoiceTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceTime</DataField>
+        </Field>
+        <Field Name="ECCNum">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECCNum</DataField>
+        </Field>
+        <Field Name="VehicleNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VehicleNumber</DataField>
+        </Field>
+        <Field Name="POItems">
+          <rd:TypeName>System.Collections.Generic.List`1[FiltrumTaxInvoice.BusinessObjects.BO.POItem]</rd:TypeName>
+          <DataField>POItems</DataField>
+        </Field>
+        <Field Name="NetValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetValue</DataField>
+        </Field>
+        <Field Name="ExsiceDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ExsiceDuty</DataField>
+        </Field>
+        <Field Name="CessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CessDuty</DataField>
+        </Field>
+        <Field Name="EcessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EcessDuty</DataField>
+        </Field>
+        <Field Name="SHCessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>SHCessDuty</DataField>
+        </Field>
+        <Field Name="VATDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>VATDuty</DataField>
+        </Field>
+        <Field Name="ExciseAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseAmountInWords</DataField>
+        </Field>
+        <Field Name="GrossAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>GrossAmountInWords</DataField>
+        </Field>
+        <Field Name="RemovalTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalTime</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceDate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Invoice5">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetInvoices</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.1uhhufdh, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="SerialNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SerialNumber</DataField>
+        </Field>
+        <Field Name="UserName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="MashineName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>MashineName</DataField>
+        </Field>
+        <Field Name="InvoiceCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>InvoiceCode</DataField>
+        </Field>
+        <Field Name="CustomerCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerCode</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="BillingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>BillingAddress</DataField>
+        </Field>
+        <Field Name="ShippingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ShippingAddress</DataField>
+        </Field>
+        <Field Name="GrossAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>GrossAmount</DataField>
+        </Field>
+        <Field Name="RateOfDuty">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>RateOfDuty</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChapterHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading2</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="TranseportMode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>TranseportMode</DataField>
+        </Field>
+        <Field Name="POCode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>POCode</DataField>
+        </Field>
+        <Field Name="PODate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="RemovalDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalDate</DataField>
+        </Field>
+        <Field Name="InvoiceTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceTime</DataField>
+        </Field>
+        <Field Name="ECCNum">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECCNum</DataField>
+        </Field>
+        <Field Name="VehicleNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VehicleNumber</DataField>
+        </Field>
+        <Field Name="POItems">
+          <rd:TypeName>System.Collections.Generic.List`1[FiltrumTaxInvoice.BusinessObjects.BO.POItem]</rd:TypeName>
+          <DataField>POItems</DataField>
+        </Field>
+        <Field Name="NetValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetValue</DataField>
+        </Field>
+        <Field Name="ExsiceDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ExsiceDuty</DataField>
+        </Field>
+        <Field Name="CessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CessDuty</DataField>
+        </Field>
+        <Field Name="EcessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EcessDuty</DataField>
+        </Field>
+        <Field Name="SHCessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>SHCessDuty</DataField>
+        </Field>
+        <Field Name="VATDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>VATDuty</DataField>
+        </Field>
+        <Field Name="ExciseAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseAmountInWords</DataField>
+        </Field>
+        <Field Name="GrossAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>GrossAmountInWords</DataField>
+        </Field>
+        <Field Name="RemovalTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalTime</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceDate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Duties2">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetDuties</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code._46g4dns, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="CessRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CessRate</DataField>
+        </Field>
+        <Field Name="ECessRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECessRate</DataField>
+        </Field>
+        <Field Name="ExciseRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseRate</DataField>
+        </Field>
+        <Field Name="SHCessRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SHCessRate</DataField>
+        </Field>
+        <Field Name="VATRate">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VATRate</DataField>
+        </Field>
+        <Field Name="NetTotal">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetTotal</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Invoice6">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetInvoices</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code._46g4dns, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="SerialNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>SerialNumber</DataField>
+        </Field>
+        <Field Name="UserName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UserName</DataField>
+        </Field>
+        <Field Name="MashineName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>MashineName</DataField>
+        </Field>
+        <Field Name="InvoiceCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>InvoiceCode</DataField>
+        </Field>
+        <Field Name="CustomerCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>CustomerCode</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="BillingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>BillingAddress</DataField>
+        </Field>
+        <Field Name="ShippingAddress">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ShippingAddress</DataField>
+        </Field>
+        <Field Name="GrossAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>GrossAmount</DataField>
+        </Field>
+        <Field Name="RateOfDuty">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>RateOfDuty</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChapterHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading2</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="TranseportMode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>TranseportMode</DataField>
+        </Field>
+        <Field Name="POCode">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>POCode</DataField>
+        </Field>
+        <Field Name="PODate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>PODate</DataField>
+        </Field>
+        <Field Name="RemovalDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalDate</DataField>
+        </Field>
+        <Field Name="InvoiceTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceTime</DataField>
+        </Field>
+        <Field Name="ECCNum">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ECCNum</DataField>
+        </Field>
+        <Field Name="VehicleNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>VehicleNumber</DataField>
+        </Field>
+        <Field Name="POItems">
+          <rd:TypeName>System.Collections.Generic.List`1[FiltrumTaxInvoice.BusinessObjects.BO.POItem]</rd:TypeName>
+          <DataField>POItems</DataField>
+        </Field>
+        <Field Name="NetValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NetValue</DataField>
+        </Field>
+        <Field Name="ExsiceDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ExsiceDuty</DataField>
+        </Field>
+        <Field Name="CessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CessDuty</DataField>
+        </Field>
+        <Field Name="EcessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EcessDuty</DataField>
+        </Field>
+        <Field Name="SHCessDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>SHCessDuty</DataField>
+        </Field>
+        <Field Name="VATDuty">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>VATDuty</DataField>
+        </Field>
+        <Field Name="ExciseAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ExciseAmountInWords</DataField>
+        </Field>
+        <Field Name="GrossAmountInWords">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>GrossAmountInWords</DataField>
+        </Field>
+        <Field Name="RemovalTime">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>RemovalTime</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>InvoiceDate</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem4">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems1</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.vffcnamp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem5">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems2</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.vffcnamp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem6">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems3</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.vffcnamp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem7">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems4</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.1xy58ses, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem8">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems5</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.migkz7wn, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem9">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems6</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.migkz7wn, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem10">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems7</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.migkz7wn, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="POItem11">
+      <rd:DataSetInfo>
+        <rd:ObjectDataSourceSelectMethod>GetPOItems8</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>FiltrumTAXInvoice.SessionData, App_Code.migkz7wn, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText />
+        <DataSourceName>DummyDataSource</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ItemTotalAmount">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ItemTotalAmount</DataField>
+        </Field>
+        <Field Name="DescriptionOfPackages">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>DescriptionOfPackages</DataField>
+        </Field>
+        <Field Name="NumberOfQuantity">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>NumberOfQuantity</DataField>
+        </Field>
+        <Field Name="POItemID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>POItemID</DataField>
+        </Field>
+        <Field Name="CustomerPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>CustomerPartNumber</DataField>
+        </Field>
+        <Field Name="FFTLPartNumber">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>FFTLPartNumber</DataField>
+        </Field>
+        <Field Name="PriceRate">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PriceRate</DataField>
+        </Field>
+        <Field Name="UnitOfMesurement">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>UnitOfMesurement</DataField>
+        </Field>
+        <Field Name="ProductCode">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>ProductCode</DataField>
+        </Field>
+        <Field Name="ProductName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ProductName</DataField>
+        </Field>
+        <Field Name="ChapterHeading1">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChapterHeading1</DataField>
+        </Field>
+        <Field Name="ChaperHeading2">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>ChaperHeading2</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Width>20.31746cm</Width>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <Language>en-US</Language>
+  <PageFooter>
+    <Height>0.25in</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+  </PageFooter>
+  <TopMargin>1in</TopMargin>
+</Report>

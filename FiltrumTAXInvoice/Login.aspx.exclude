@@ -1,0 +1,75 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+</head>
+<body bgcolor="lavender">
+    <form id="form1" runat="server">
+    <div>
+    
+     <table width="100%" border="1">
+            <tr>
+           <td colspan="3" style="height: 62px" >
+           
+           <table width="100%">
+           
+           <tr>
+           <td style="width: 154px; height: 34px" valign="top">
+               <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logo_1.jpg" /></td>
+           <td style="width: 50%; height: 34px">
+               <strong><span style="font-size: 24pt"><span style="font-family: Haettenschweiler">Filtrum
+                   Fibretechnologies Private Limited<br />
+                   <br />
+                   <span style="color: #ff0066; text-decoration: underline">Invoice System</span></span></span></strong> 
+           </td>
+               <td style="vertical-align: top; width: 315px; height: 34px; text-align: right" valign="top">
+                   <asp:Image ID="Image3" runat="server" Height="134px" ImageAlign="AbsBottom" ImageUrl="~/Images/filtrum.jpg" /></td>
+           <td style="vertical-align: top; width: 129px; height: 34px; text-align: right" valign="top">
+               <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/paper.jpg" /></td>
+           
+           </tr>
+           
+           </table>
+           
+           </td>
+           
+           
+            </tr>
+            
+            <tr>
+            
+            <td style="width: 37%; height: 303px;" valign="top" >
+               
+                
+               
+            </td>
+            <td colspan="2" style="height: 303px">
+            
+          
+             </td>
+            </tr>
+            
+            
+            <tr>
+            
+            <td colspan="3" style="text-align: center; height: 23px;">
+                <span lang="EN-GB" style="font-size: 12pt; font-family: 'Times New Roman'; mso-fareast-font-family: 'Times New Roman';
+                    mso-ansi-language: EN-GB; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">
+                    <span style="mso-spacerun: yes">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </span>Copyright
+                    © 2007 AVC Softwares. All Rights Reserved. </span>
+            </td>
+            </tr>
+            
+            
+        </table>
+    
+    
+
+    
+    </div>
+    </form>
+</body>
+</html>

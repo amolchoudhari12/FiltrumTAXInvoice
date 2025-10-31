@@ -1,0 +1,977 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using FiltrumTaxInvoice.BusinessObjects.BO;
+using FiltrumTaxInvoice.BAL;
+using FiltrumTaxInvoice.BusinessObjects.Common;
+using FiltrumTAXInvoice;
+using FiltrumTaxInvoice;
+
+
+
+public partial class UI_InvoiceManagement : System.Web.UI.Page
+{
+    ArrayList prodCodes = new ArrayList();
+    string ChapterHeadings = "";
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            if (!IsPostBack)
+            {
+                btnPrint.Enabled = false;
+               
+                //BindCustomerCodeComboBox();
+                NumericToWord converter = new NumericToWord();
+                string str = converter.changeNumericToWords(1548.25) + " Paise Only";
+
+
+            }
+
+            Page.MaintainScrollPositionOnPostBack = true;
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+    }
+
+    private void BindCustomerCodeComboBox()
+    {
+        try
+        {
+            Customer newCustomer = new Customer();
+            CustomerBAL custBAL = new CustomerBAL();
+            ArrayList custList = new ArrayList();
+
+            DataTable dt = custBAL.ViewCustomers();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                custList.Add(dr["CustomerCode"]);
+
+
+            }
+
+            comboCustomerCode.DataSource = custList;
+            comboCustomerCode.DataBind();
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+
+    protected void comboCustomerCode_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+
+            if (comboPOCode.Items.Count  > 1)
+            {
+                comboPOCode.Items.Clear();
+                ListItem lst = new ListItem();
+                lst.Value = Convert.ToString(0);
+                lst.Text = "Select PO Code";
+                comboPOCode.Items.Add(lst);
+
+            }
+
+            int customerCode = new int();
+
+            customerCode = Convert.ToInt32(comboCustomerCode.SelectedValue);
+
+
+            int serialNumber = 0;
+            Customer newCustomer = new Customer();
+            CustomerBAL balCustomer = new CustomerBAL();
+
+            if (customerCode != 0)
+            {
+
+                Customer customerDetails = balCustomer.GetCustomerForEdit(customerCode);
+
+                txtCustomerName.Text = customerDetails.CustomerFirstName + customerDetails.CustomerLastName;
+                txtBillTo.Text = customerDetails.BillingAddress;
+                txtShipTo.Text = customerDetails.ShippingAddress;
+                txtCountry.Text = customerDetails.Country;
+                txtState.Text = customerDetails.State;
+                txtCity.Text = customerDetails.City;
+                txtPin.Text = customerDetails.PinCode.ToString();
+                txtECCNumber.Text = customerDetails.ECCNo;
+                if (customerDetails.IsDomestic == true)
+                {
+                    txtCustomerType.Text = "Domestic";
+                    serialNumber = balCustomer.GetLastInvoiceCount();
+                    txtSRNumber.Text = Convert.ToString(serialNumber + 1);
+
+                }
+                else
+                {
+                    txtCustomerType.Text = "Foregin";
+                    serialNumber = balCustomer.GetLastInvoiceCount();
+                    txtSRNumber.Text = "F" + Convert.ToString(serialNumber + 1);
+                }
+            }
+            else if (customerCode == 0)
+            {
+                txtBillTo.Text = string.Empty;
+                txtShipTo.Text = string.Empty;
+                txtCountry.Text = string.Empty;
+                txtState.Text = string.Empty;
+                txtCity.Text = string.Empty;
+                txtPin.Text = string.Empty;
+                txtECCNumber.Text = string.Empty;
+                txtCustomerType.Text = string.Empty;
+                txtSRNumber.Text = string.Empty;
+
+            }
+
+
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+    protected void comboPOCode_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        try
+        {
+
+            int poID = new int();
+
+            poID = Convert.ToInt32(comboPOCode.SelectedValue);
+
+
+            if (poID != 0)
+            {
+
+                PurchaseOrder newPO = new PurchaseOrder();
+                PurchaseOrderBAL balPurchaseOrder = new PurchaseOrderBAL();
+
+                newPO = balPurchaseOrder.GetPurchaseOrderForEdit(poID);
+
+                txtPODate.Text = newPO.PODate.ToString();
+
+                BindPOItemsGrid();
+            }
+            else if (poID == 0)
+            {
+                txtPODate.Text = string.Empty;
+                grdPOItems.DataSource = null;
+                grdPOItems.DataBind();
+
+
+            }
+
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private void BindPOItemsGrid()
+    {
+        try
+        {
+
+            POItem newPOItem = new POItem();
+            POItemBAL balPOItem = new POItemBAL();
+
+            DataTable dt = balPOItem.ViewPOItemsOfPO(Convert.ToInt32(comboPOCode.SelectedValue));
+
+            grdPOItems.DataSource = dt;
+            grdPOItems.DataBind();
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+    //protected void comboExcisableName_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        int productCode = new int();
+
+    //        productCode = Convert.ToInt32(comboExcisableName.SelectedValue);
+
+
+    //        if (productCode != 0)
+    //        {
+    //            Product newProduct = new Product();
+    //            ProductBAL balProductBAL = new ProductBAL();
+
+    //            newProduct = balProductBAL.GetProductForEdit(productCode);
+
+    //            if (newProduct.ChaperHeading2 != string.Empty)
+    //                txtChapterHeading.Text = newProduct.ChapterHeading1 + "," + newProduct.ChaperHeading2;
+    //            else
+    //                txtChapterHeading.Text = newProduct.ChapterHeading1;
+
+
+    //        }
+
+
+    //    }
+    //    catch (Exception)
+    //    {
+
+    //        throw;
+    //    }
+    //}
+    protected void btnTotal_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Label3.Text = "";
+            Label4.Text = "";
+            comboVATRate.Enabled = true;
+
+            if (IsItemsSelectedExceeds())
+            {
+                lblCount.Visible = false;
+                double priceRate = 0;
+                double quantity = 0;
+                double total = 0;
+                double netTotal = 0;
+
+
+                for (int index = 0; index < grdPOItems.Rows.Count; index++)
+                {
+                    GridViewRow row = grdPOItems.Rows[index];
+
+
+                    if (((CheckBox)row.FindControl("chkSelectedItem")).Checked == true)
+                    {
+                        priceRate = Convert.ToDouble((((TextBox)row.FindControl("txtPriceRate")).Text));
+                        quantity = Convert.ToDouble((((TextBox)row.FindControl("txtQuntity")).Text));
+                        total = priceRate * quantity;
+                        netTotal = netTotal + total;
+
+                        ((TextBox)row.FindControl("txtTotal")).Text = total.ToString();
+
+
+                        if (CheckIfPRoductCodeAdded(Convert.ToDouble((((TextBox)row.FindControl("txtProductCode")).Text))) == false)
+                        {
+                            if (Label3.Text == "" && Label4.Text == "")
+                            {
+                                Label3.Text += (((TextBox)row.FindControl("txtPOItemName")).Text);
+                                if ((((TextBox)row.FindControl("txtChapterHeading2")).Text) != string.Empty)
+                                    Label4.Text += (((TextBox)row.FindControl("txtChapterHeading1")).Text) + "," + (((TextBox)row.FindControl("txtChapterHeading2")).Text);
+                                else
+                                    Label4.Text += (((TextBox)row.FindControl("txtChapterHeading1")).Text);
+                            }
+                            else
+                            {
+                                Label3.Text += ", " + (((TextBox)row.FindControl("txtPOItemName")).Text);
+                                if ((((TextBox)row.FindControl("txtChapterHeading2")).Text) != string.Empty)
+                                    Label4.Text += ", " + (((TextBox)row.FindControl("txtChapterHeading1")).Text) + "," + (((TextBox)row.FindControl("txtChapterHeading2")).Text);
+                                else
+                                    Label4.Text += ", " + (((TextBox)row.FindControl("txtChapterHeading1")).Text);
+                            }
+                        }
+
+                    }
+
+                    txtNetAmount.Text = netTotal.ToString();
+                }
+
+                CalculateDuties(netTotal);
+
+                SetDates();
+                btnSave.Enabled = true;
+            }
+            else
+            {
+                lblCount.Visible = true;
+            }
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private bool CheckIfPRoductCodeAdded(double prodCode)
+    {
+        if (prodCodes.Contains(prodCode))
+        {
+            return true;
+        }
+        else
+        {
+            prodCodes.Add(prodCode);
+            return false;
+        }
+
+    }
+
+    private bool IsItemsSelectedExceeds()
+    {
+        try
+        {
+            int count = 0;
+
+            for (int index = 0; index < grdPOItems.Rows.Count; index++)
+            {
+                GridViewRow row = grdPOItems.Rows[index];
+
+
+                if (((CheckBox)row.FindControl("chkSelectedItem")).Checked == true)
+                {
+                    count = count + 1;
+                }
+
+
+            }
+            Session["SelectedItemCount"] = count;
+            if (count <= 8)
+                return true;
+            else
+                return false;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private void SetDates()
+    {
+        try
+        {
+
+            DateTime todaysDate = new DateTime();
+
+            todaysDate = System.DateTime.Now;
+            string[] str = todaysDate.GetDateTimeFormats('D');
+            string date = Convert.ToString(todaysDate.Day + "/" + todaysDate.Month + "/" + todaysDate.Year);
+            //lblDateOfInvoice.Text = str[3].ToString();
+            lblDateOfInvoice.Text = date;
+            //lblDateOfInvoice.Text = todaysDate.Date.Date.ToShortDateString();
+
+            lblTimeOfInvoice.Text = todaysDate.TimeOfDay.ToString().Substring(0, 8);
+            txtTimeOfRemoval.Text = todaysDate.TimeOfDay.ToString().Substring(0, 8);
+            //txtDateOfRemoval.Text = str[3].ToString();
+            txtDateOfRemoval.Text = date;
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private void CalculateDuties(double netTotal)
+    {
+        try
+        {
+            double exciseDuty = 0;
+            double cessDuty = 0;
+            double eCessDuty = 0;
+            double shCessDuty = 0;
+            double vatRate = 0;
+            double grossTotal = 0;
+            double gorssWithoutVAT = 0;
+
+
+            Customer newCustomer = new Customer();
+            CustomerBAL balCustomer = new CustomerBAL();
+
+            //Getting Customer Related Invoice taxes.
+            Customer customer = balCustomer.GetCustomerForEdit(Convert.ToInt32(comboCustomerCode.SelectedValue));
+
+            exciseDuty = Convert.ToDouble(customer.ExciseDuty);
+            cessDuty = Convert.ToDouble(customer.CessDuty);
+            eCessDuty = Convert.ToDouble(customer.EcessDuty);
+            shCessDuty = Convert.ToDouble(customer.SHCessDuty);
+            vatRate = Convert.ToDouble(customer.VATDuty);
+
+
+            SessionData sessionData = new SessionData();
+            List<Duties> duties = new List<Duties>();
+            Duties newDuty = new Duties();
+            if (exciseDuty > 0)
+                newDuty.ExciseRate = Convert.ToString(exciseDuty) + " %";
+            else
+                newDuty.ExciseRate = string.Empty;
+
+            if (cessDuty > 0)
+                newDuty.CessRate = Convert.ToString(cessDuty) + " %";
+            else
+                newDuty.CessRate = string.Empty;
+
+            if (eCessDuty > 0)
+                newDuty.ECessRate = Convert.ToString(eCessDuty) + " %";
+            else
+                newDuty.ECessRate = string.Empty;
+
+            if (shCessDuty > 0)
+                newDuty.SHCessRate = Convert.ToString(shCessDuty) + " %";
+            else
+                newDuty.SHCessRate = string.Empty;
+
+            if (vatRate > 0)
+                newDuty.VATRate = Convert.ToString(vatRate) + " %";
+            else
+                newDuty.VATRate = string.Empty;
+
+
+
+
+
+            if (exciseDuty > 0)
+                exciseDuty = ((Convert.ToDouble(customer.ExciseDuty) * netTotal) / 100); //+ netTotal;
+
+            if (cessDuty > 0)
+                cessDuty = ((Convert.ToDouble((customer.CessDuty)) * netTotal) / 100);// +netTotal;
+
+            if (eCessDuty > 0)
+                eCessDuty = ((Convert.ToDouble(customer.EcessDuty) * (exciseDuty + cessDuty)) / 100);// Convert.ToDouble(exciseDuty + cessDuty)) / 100) + (Convert.ToDouble(customer.EcessDuty) * Convert.ToDouble(exciseDuty + cessDuty));
+
+            if (shCessDuty > 0)
+                shCessDuty = ((Convert.ToDouble(customer.SHCessDuty) * (exciseDuty + cessDuty)) / 100);// Convert.ToDouble(exciseDuty + cessDuty)) / 100) + (Convert.ToDouble(customer.EcessDuty) * Convert.ToDouble(exciseDuty + cessDuty));
+
+            string appendZero = ".00";
+            txtExciseDuty.Text = Decimal.Round(Convert.ToDecimal(exciseDuty), MidpointRounding.ToEven).ToString() + appendZero;
+            txtCessDuty.Text = Decimal.Round(Convert.ToDecimal(cessDuty), MidpointRounding.ToEven).ToString() + appendZero;
+            txtSHCessDuty.Text = Decimal.Round(Convert.ToDecimal(shCessDuty), MidpointRounding.ToEven).ToString() + appendZero;
+            txtECessDuty.Text = Decimal.Round(Convert.ToDecimal(eCessDuty), MidpointRounding.ToEven).ToString() + appendZero;
+            txtNetTotal.Text = Decimal.Round(Convert.ToDecimal(gorssWithoutVAT), 2).ToString();
+
+            gorssWithoutVAT = netTotal + Convert.ToDouble(txtExciseDuty.Text) + Convert.ToDouble(txtCessDuty.Text) + Convert.ToDouble(txtECessDuty.Text) + Convert.ToDouble(txtSHCessDuty.Text);
+
+            newDuty.NetTotal = Convert.ToDouble(Decimal.Round(Convert.ToDecimal(gorssWithoutVAT), 2));
+
+
+
+
+            if (customer.VATDuty > 0)
+            {
+                vatRate = ((gorssWithoutVAT * Convert.ToDouble(customer.VATDuty) / 100));
+                grossTotal = vatRate + gorssWithoutVAT;
+                txtVATRate.Text = Decimal.Round(Convert.ToDecimal(vatRate), MidpointRounding.ToEven).ToString() + appendZero;
+                txtGrossWithoutVAT.Text = Decimal.Round(Convert.ToDecimal(gorssWithoutVAT), 2).ToString();
+
+                txtGrossValue.Text = Decimal.Round(Convert.ToDecimal(txtGrossWithoutVAT.Text) + Convert.ToDecimal(txtVATRate.Text), 2).ToString();
+            }
+            else
+            {
+                txtVATRate.Text = "N/A";
+                txtGrossWithoutVAT.Text = Decimal.Round(Convert.ToDecimal(gorssWithoutVAT), 2).ToString();
+                grossTotal = Convert.ToDouble(Decimal.Round(Convert.ToDecimal(gorssWithoutVAT), 2));
+                txtGrossValue.Text = Decimal.Round(Convert.ToDecimal(grossTotal), 2).ToString();
+            }
+
+            SetAmountInWords(Convert.ToDouble(txtExciseDuty.Text), Convert.ToDouble(txtGrossValue.Text));
+
+
+            duties.Add(newDuty);
+            sessionData.Duties = duties;
+
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private void SetAmountInWords(double exciseDuty, double grossTotal)
+    {
+        try
+        {
+            NumericToWord converter = new NumericToWord();
+           string strPaise = " Paise Only";
+
+            exciseDuty = Convert.ToDouble(Decimal.Round(Convert.ToDecimal(exciseDuty), 2));
+            grossTotal = Convert.ToDouble(Decimal.Round(Convert.ToDecimal(grossTotal), 2));
+
+            string str = Convert.ToDecimal(grossTotal).ToString();
+            string strExcise  = "";
+
+            if( exciseDuty  > 0)
+             strExcise = converter.changeNumericToWords(Convert.ToInt32(exciseDuty)).ToString() + "Rupees Only";
+            else
+                strExcise = string.Empty ;
+
+            string strAmount = "";
+            if (str.Contains("."))
+            {
+                for (int i = 0; i < str.Length; i++)
+                {
+                    if (str[i].ToString() == ".")
+                    {
+                        string str2 = str.Substring(i + 1);
+                        if (str2.Length <= 1)
+                            str += "0";
+                    }
+                }
+                strAmount = converter.changeNumericToWords(str).ToString() + strPaise;
+            }
+            else
+            {
+                strAmount = converter.changeNumericToWords(str).ToString() + "Rupees only";
+            }
+
+
+
+            // if (strExcise.Trim() != strPaise.Trim())
+            txtExciseDutyInWords.Text = strExcise;// converter.changeNumericToWords(exciseDuty).ToString() + " Paise Only";
+            //  else
+            //      txtExciseDutyInWords.Text = string.Empty;
+            txtAmountOfInvoiceInWords.Text = strAmount; // converter.changeNumericToWords(grossTotal).ToString() + " Paise Only";
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Invoice currentInvoice = new Invoice();
+            InvoiceBAL balInvoice = new InvoiceBAL();
+
+
+
+
+            currentInvoice.SerialNumber = FormatSeralNumber(txtSRNumber.Text);
+            currentInvoice.CustomerCode = Convert.ToInt32(comboCustomerCode.SelectedValue);
+
+            string str = txtCustomerName.Text + "\r\n" + txtBillTo.Text;
+            str = RemoveNewLineFromString(str);
+            currentInvoice.BillingAddress = str;
+
+            str = txtCustomerName.Text + "\r\n" + txtShipTo.Text;
+            str = RemoveNewLineFromString(str);
+            currentInvoice.ShippingAddress = str;
+
+            currentInvoice.POCode = comboPOCode.SelectedItem.Text;
+            currentInvoice.PODate = txtPODate.Text.Substring(0, 8);
+            currentInvoice.ECCNum = txtECCNumber.Text;
+            currentInvoice.ProductName = Label3.Text;
+            currentInvoice.TranseportMode = txtTranseportMode.Text;
+            currentInvoice.VehicleNumber = txtVehicleNumber.Text;
+            //currentInvoice.ProductName = comboExcisableName.SelectedItem.Text;
+            // currentInvoice.ChapterHeading1 = txtChapterHeading.Text;
+            currentInvoice.ChapterHeading2 = "";
+            currentInvoice.RateOfDuty = txtRateOfDuty.Text;
+            currentInvoice.NetValue = Convert.ToDouble(txtNetAmount.Text);
+            currentInvoice.ExsiceDuty = Convert.ToDouble(txtExciseDuty.Text);
+            currentInvoice.ChapterHeading1 = Label4.Text;
+
+            currentInvoice.STR_ExsiceDuty = txtExciseDuty.Text;
+            if (txtCessDuty.Text != "")
+            {
+                currentInvoice.CessDuty = Convert.ToDouble(txtCessDuty.Text);
+                currentInvoice.STR_CessDuty = txtCessDuty.Text;
+            }
+
+            if (txtECessDuty.Text != "")
+            {
+                currentInvoice.EcessDuty = Convert.ToDouble(txtECessDuty.Text);
+                currentInvoice.STR_e_cessDuty = txtECessDuty.Text;
+            }
+
+            if (txtSHCessDuty.Text != "")
+            {
+                currentInvoice.SHCessDuty = Convert.ToDouble(txtSHCessDuty.Text);
+                currentInvoice.STR_shCessDuty = txtSHCessDuty.Text;
+            }
+
+            if (txtVATRate.Text != "" && txtVATRate.Text != "N/A")
+            {
+                currentInvoice.VATDuty = Convert.ToDouble(txtVATRate.Text);
+                currentInvoice.STR_vatDuty = txtVATRate.Text;
+            }
+
+            if (txtGrossValue.Text != "")
+                currentInvoice.GrossAmount = Convert.ToDouble(txtGrossValue.Text);
+            currentInvoice.ExciseAmountInWords = txtExciseDutyInWords.Text;
+            currentInvoice.GrossAmountInWords = txtAmountOfInvoiceInWords.Text;
+            currentInvoice.InvoiceDate = lblDateOfInvoice.Text;
+            currentInvoice.InvoiceTime = lblTimeOfInvoice.Text;
+            currentInvoice.RemovalDate = txtDateOfRemoval.Text;
+            currentInvoice.RemovalTime = txtTimeOfRemoval.Text;
+            currentInvoice.UserName = Session["UserName"].ToString();
+
+            List<POItem> selectedPOItems = new List<POItem>();
+
+            selectedPOItems = GetSelectedPOItems();
+            currentInvoice.POItems = selectedPOItems;
+
+
+            currentInvoice.MashineName = currentInvoice.UserName + "'s machine";
+
+
+
+
+            int invoiceID = balInvoice.AddInvoice(currentInvoice);
+            currentInvoice.InvoiceCode = invoiceID;
+            foreach (POItem poItem in currentInvoice.POItems)
+            {
+                int returnValue1 = balInvoice.AddInvoicePOItems(poItem, invoiceID);
+            }
+
+            int returnValue2 = balInvoice.AddInvoiceHistory(currentInvoice);
+
+
+
+
+
+            btnSave.Enabled = false;
+
+            Session["Inoice"] = currentInvoice;
+            SessionData sessionData = new SessionData();
+            List<Invoice> newInvoices = new List<Invoice>();
+            newInvoices.Add(currentInvoice);
+            sessionData.Invoices = newInvoices;
+            sessionData.POItems = currentInvoice.POItems;
+            sessionData.POItems1.Clear();
+            sessionData.POItems2.Clear();
+            sessionData.POItems3.Clear();
+            sessionData.POItems4.Clear();
+
+
+            for (int I = 0; I < currentInvoice.POItems.Count; I++)
+            {
+                switch (I)
+                {
+                    case 0:
+
+                        sessionData.POItems1.Add(currentInvoice.POItems[0]);
+                        break;
+                    case 1:
+
+                        sessionData.POItems2.Add(currentInvoice.POItems[1]);
+                        break;
+
+                    case 2:
+
+                        sessionData.POItems3.Add(currentInvoice.POItems[2]);
+                        break;
+
+                    case 3:
+
+                        sessionData.POItems4.Add(currentInvoice.POItems[3]);
+                        break;
+
+                    case 4:
+
+                        sessionData.POItems5.Add(currentInvoice.POItems[4]);
+                        break;
+                    case 5:
+
+                        sessionData.POItems6.Add(currentInvoice.POItems[5]);
+                        break;
+
+                    case 6:
+
+                        sessionData.POItems7.Add(currentInvoice.POItems[6]);
+                        break;
+
+                    case 7:
+
+                        sessionData.POItems8.Add(currentInvoice.POItems[7]);
+                        break;
+
+
+                }
+            }
+
+
+            btnSave.Enabled = false;
+            btnPrint.Enabled = true;
+            btnCancel.Enabled = false;
+            lblSaveSuccess.Visible = true;
+            //RedirectToReport(sessionData.POItems.Count);
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private string FormatSeralNumber(string serialNumber)
+    {
+        string formatedSerialNumber = "";
+
+        if (serialNumber.Substring(0, 1) == "F")
+        {
+            string serialnum = serialNumber.Substring(1, serialNumber.Length - 1);
+            switch (serialnum.Length)
+            {
+                case 1:
+
+                    formatedSerialNumber = "F00" + serialnum;
+                    break;
+
+                case 2:
+                    formatedSerialNumber = "F0" + serialnum;
+                    break;
+
+                case 3:
+                    formatedSerialNumber = "F" + serialnum;
+                    break;
+
+
+
+            }
+        }
+        else
+        {
+
+
+            switch (serialNumber.Length)
+            {
+                case 1:
+
+                    formatedSerialNumber = "000" + serialNumber;
+                    break;
+
+                case 2:
+                    formatedSerialNumber = "00" + serialNumber;
+                    break;
+
+                case 3:
+                    formatedSerialNumber = "0" + serialNumber;
+                    break;
+
+
+
+            }
+        }
+
+        return formatedSerialNumber;
+       
+    }
+
+    private string RemoveNewLineFromString(string str)
+    {
+        try
+        {
+
+            string str1 = "\n";
+            string strBuild = "";
+            int count = 0;
+
+            if (str != string.Empty)
+            {
+
+                for (int i = 0; i < str.Length; i++)
+                {
+
+
+                    if (str[i].ToString() == str1)
+                    {
+                        if (count != 0)
+                        {
+                            strBuild = strBuild + ", ".ToString();
+                        }
+                        else if (count == 0)
+                        {
+                            strBuild = strBuild + str[i].ToString();
+                        }
+                        count = count + 1;
+
+                    }
+                    else
+                    {
+                        strBuild = strBuild + str[i].ToString();
+                    }
+                }
+            }
+            return strBuild;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private void RedirectToReport(int p)
+    {
+        try
+        {
+            switch (p)
+            {
+                case 1:
+                    Response.Redirect("~/Reports/PrintReport.aspx");
+                    break;
+
+                case 2:
+                    Response.Redirect("~/Reports/PrintItem1.aspx");
+                    break;
+
+                case 3:
+                    Response.Redirect("~/Reports/PrintItem2.aspx");
+                    break;
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private List<POItem> GetSelectedPOItems()
+    {
+        try
+        {
+
+            List<POItem> selectedPOItems = new List<POItem>();
+            int serialNumber = 1;
+
+
+            for (int index = 0; index < grdPOItems.Rows.Count; index++)
+            {
+                GridViewRow row = grdPOItems.Rows[index];
+
+
+                if (((CheckBox)row.FindControl("chkSelectedItem")).Checked == true)
+                {
+                    POItem poItem = new POItem();
+                    poItem.POItemID = serialNumber;
+
+                    // poItem.ProductCode = Convert.ToInt32(((TextBox)row.FindControl("txtProductCode")).Text);
+                    poItem.CustomerPartNumber = ((TextBox)row.FindControl("txtCustomerPartNo")).Text;
+                    poItem.FFTLPartNumber = ((TextBox)row.FindControl("txtFFTLPartNo")).Text;
+                    poItem.DescriptionOfPackages = ((TextBox)row.FindControl("txtPackageDescription")).Text;
+                    poItem.ProductName = Convert.ToString(((TextBox)row.FindControl("txtPOItemName")).Text);
+
+                    poItem.NumberOfQuantity = Convert.ToDouble(((TextBox)row.FindControl("txtQuntity")).Text);
+                    poItem.PriceRate = Convert.ToDouble(((TextBox)row.FindControl("txtPriceRate")).Text);
+                    poItem.UnitOfMesurement = ((TextBox)row.FindControl("txtUnit")).Text;
+                    poItem.ItemTotalAmount = Convert.ToDouble(((TextBox)row.FindControl("txtTotal")).Text);
+
+                    selectedPOItems.Add(poItem);
+                    serialNumber++;
+
+                }
+
+
+
+
+
+
+
+            }
+            return selectedPOItems;
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int countOfSelectedItem = Convert.ToInt32(Session["SelectedItemCount"]);
+
+            if (countOfSelectedItem <= 4)
+            {
+                Response.Redirect("~/Reports/PrintInvoice.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/Reports/PrintInvoice_Part1.aspx");
+            }
+            btnCancel.Enabled = true;
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Main.aspx");
+    }
+
+    protected void comboVATRate_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            double selectedVATRate = Convert.ToDouble(comboVATRate.SelectedValue);
+            double grossAmount = 0;
+            double vatDuty = 0;
+
+            if (selectedVATRate > 0 )
+            {
+                double grossWithoutVAT = Convert.ToDouble(txtGrossWithoutVAT.Text);
+                vatDuty = (selectedVATRate * grossWithoutVAT) / 100;
+                txtVATRate.Text = Decimal.Round(Convert.ToDecimal(vatDuty), 2).ToString();
+                grossAmount = vatDuty + grossWithoutVAT;
+                txtGrossValue.Text = Decimal.Round(Convert.ToDecimal(grossAmount), 2).ToString();
+                SetAmountInWords(Convert.ToDouble(txtExciseDuty.Text), grossAmount);
+
+                if (SessionData.duties.Count > 0)
+                {
+                    SessionData.duties[0].VATRate = selectedVATRate.ToString();
+                }
+
+            }
+            else if (selectedVATRate == 0)
+            {
+                txtGrossValue.Text = txtGrossWithoutVAT.Text;
+                txtVATRate.Text = "N/A";
+                SetAmountInWords(Convert.ToDouble(txtExciseDuty.Text), Convert.ToDouble(txtGrossValue.Text));
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+}

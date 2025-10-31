@@ -1,0 +1,73 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using FiltrumTaxInvoice.BAL;
+using FiltrumTaxInvoice.BusinessObjects.BO;
+
+public partial class Login : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        try
+        {
+            
+            lblError.Visible = false;
+            txtUsername.Focus();
+
+        }
+        catch (Exception)
+        {
+            
+            throw;
+        }
+    }
+    protected void btnLogin_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            string userName = string.Empty;
+            string password = string.Empty;
+
+            userName = txtUsername.Text;
+            password = txtPassword.Text;
+
+            if (userName != string.Empty && password != string.Empty)
+            {
+                User user = new User();
+
+                UserBAL userBAL = new UserBAL();
+
+                int isValidated = userBAL.ValidateUser(userName, password);
+
+                if (isValidated == 1)
+                {
+                    // FormsAuthentication.DefaultUrl = "~/UI/Main.aspx";
+                    FormsAuthentication.RedirectFromLoginPage("~/Reports/PrintInvoice.aspx", false);
+                    FormsAuthentication.SetAuthCookie(userName, false);
+
+                    Session["UserName"] = userName;
+
+                }
+                else
+                {
+                    lblError.Visible = true;
+                    lblError.Text = " You are not authenticated !!!";
+                }
+            }
+
+        }
+        catch (Exception)
+        {
+            
+            throw;
+        }
+
+    }
+}

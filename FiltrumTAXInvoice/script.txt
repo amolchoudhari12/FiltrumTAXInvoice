@@ -1,0 +1,2568 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblPurchaseOrder]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblPurchaseOrder](
+	[PurchaseOrderID] [int] IDENTITY(1,1) NOT NULL,
+	[PurchaseOrderCode] [varchar](50) NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Description] [varchar](200) NULL,
+ CONSTRAINT [PK_tblPurchaseOrder] PRIMARY KEY CLUSTERED 
+(
+	[PurchaseOrderID] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblPOtoPOItem]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblPOtoPOItem](
+	[POtoPOItemID] [int] IDENTITY(1,1) NOT NULL,
+	[PurchaseOrderCode] [varchar](50) NOT NULL,
+	[POItemID] [int] NOT NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPOItems]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 28-Mar-2008
+-- Description:	This proc will add the POItems info in POItem table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetPOItems]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+			SELECT [POItemID]
+      ,[POItemName]
+      ,[ProductCode]
+      ,[CustomerPartNo]
+      ,[FFTLPartPartNo]
+      ,[DescriptionOfPackages]
+      ,[NumberOfQuntity]
+      ,[UnitOfMesurement]
+      ,[PriceRate]
+  FROM [FiltrumTAXInvoice].[dbo].[tblPOItem]
+
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPOItemForEdit]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 28-Mar-2008
+-- Description:	This proc will  get POItem for editing purpose
+-- =============================================
+CREATE PROCEDURE [dbo].[GetPOItemForEdit]
+@POItemID	int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+SELECT [POItemID]
+      ,[POItemName]
+      ,[ProductCode]
+      ,[CustomerPartNo]
+      ,[FFTLPartPartNo]
+      ,[DescriptionOfPackages]
+      ,[NumberOfQuntity]
+      ,[UnitOfMesurement]
+      ,[PriceRate]
+  FROM [FiltrumTAXInvoice].[dbo].[tblPOItem]
+			 
+			  WHERE 
+			  [FiltrumTAXInvoice].[dbo].[tblPOItem].[POItemID] = @POItemID
+			
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetCustomerForEdit]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetCustomerForEdit]
+@CustomerCode	int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+				SELECT [FiltrumTAXInvoice].[dbo].[tblCustomer].[CustomerCode]
+				  ,[CustomerFirstName]
+				  ,[CustomerLastName]
+				  ,[BillingAddress]
+				  ,[ShippingAddress]
+				  ,[ECCNumber]
+				  ,[Country]
+				  ,[State]
+				  ,[City]
+				  ,[IsDomestic]
+				  ,[PinNumber]
+				  ,[PhoneNumber]
+				  ,[FaxNumber]
+				  ,[Email]
+				  ,[Description]
+				  ,[DutyID]
+				  ,[CessDuty]
+				  ,[ECessDuty]
+				  ,[SHCessDuty]
+				  ,[ExciseDuty]
+				  ,[VATRate]
+			  FROM [FiltrumTAXInvoice].[dbo].[tblCustomer]
+			  INNER JOIN 
+			  [FiltrumTAXInvoice].[dbo].[tblDuties] 
+			  ON 
+			  [FiltrumTAXInvoice].[dbo].[tblCustomer].[CustomerCode] = [FiltrumTAXInvoice].[dbo].[tblDuties].[CustomerCode]
+			  WHERE 
+			  [dbo].[tblCustomer].[CustomerCode] = @CustomerCode
+			
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetCustomers]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetCustomers]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+				SELECT [CustomerCode]
+					  ,[CustomerFirstName]+[CustomerLastName] as [CustomerName]
+					  ,[BillingAddress]
+					  ,[ShippingAddress]
+					  ,[ECCNumber]
+					  ,[Country]
+					  ,[State]
+					  ,[City]
+					  ,[IsDomestic]
+					  ,[PinNumber]
+					  ,[PhoneNumber]
+					  ,[FaxNumber]
+					  ,[Email]
+					  ,[Description]
+				  FROM [FiltrumTAXInvoice].[dbo].[tblCustomer]
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[XXXXSaveInvoiceHistory]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the POItems into tblPOItem table and [tblPOtoPOItem]
+-- =============================================
+CREATE PROCEDURE [dbo].[XXXXSaveInvoiceHistory]
+		   @InvoiceID int 
+,@CustomerCode int
+	,@BillingAddress varchar(200)
+,@ShippingAddress varchar(200)
+,@CustomerECCCode varbinary(50)
+,@ExciseDutyAmount money
+,@CessDutyAmount money
+          ,@ECessDutyAmount money
+,@SHCessDutyAmount money
+,@VATRateAmount money
+,@InvoiceDate datetime
+,@InvoiceTime datetime
+,@RemovalDate datetime
+,@RemovalTime datetime
+,@InvoiceCreatedBy varchar(50)
+,@MachineName varchar(50)
+,@InvoiceHistoryID int output
+
+
+
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    
+	  INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoiceHistory]
+           ([InvoiceID]
+           ,[CustomerCode]
+           ,[BillingAddress]
+           ,[ShippingAddress]
+           ,[CustomerECCCode]
+           ,[ExciseDutyAmount]
+           ,[CessDutyAmount]
+           ,[ECessDutyAmount]
+           ,[SHCessDutyAmount]
+           ,[VATRateAmount]
+           ,[InvoiceDate]
+           ,[InvoiceTime]
+           ,[RemovalDate]
+           ,[RemovalTime]
+           ,[InvoiceCreatedBy]
+           ,[MachineName])
+     VALUES
+           (@InvoiceID
+           ,@CustomerCode
+           ,@BillingAddress
+           ,@ShippingAddress
+           ,@CustomerECCCode
+           ,@ExciseDutyAmount
+           ,@CessDutyAmount
+           ,@ECessDutyAmount
+           ,@SHCessDutyAmount
+           ,@VATRateAmount
+           ,@InvoiceDate
+           ,@InvoiceTime
+           ,@RemovalDate
+           ,@RemovalTime
+           ,@InvoiceCreatedBy
+           ,@MachineName)
+	
+	SET @InvoiceHistoryID = SCOPE_IDENTITY()
+
+
+	
+	
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[XXXXXXSaveInvoiceHistoey]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[XXXXXXSaveInvoiceHistoey]
+		   @InvoiceID int 
+			,@CustomerCode int
+		    ,@BillingAddress varchar(200)
+           ,@ShippingAddress varchar(200)
+           ,@CustomerECCCode varbinary(50)
+           ,@ExciseDutyAmount money
+           ,@CessDutyAmount money
+           ,@ECessDutyAmount money
+           ,@SHCessDutyAmount money
+           ,@VATRateAmount money
+		   ,@InvoiceDate datetime
+           ,@InvoiceTime datetime
+           ,@RemovalDate datetime
+           ,@RemovalTime datetime
+           ,@InvoiceCreatedBy varchar(50)
+           ,@MachineName varchar(50)        
+		   ,@InvoiceHistoryID int output
+			,@ResultValue int output
+
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+  
+   INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoiceHistory]
+           ([InvoiceID]
+           ,[CustomerCode]
+           ,[BillingAddress]
+           ,[ShippingAddress]
+           ,[CustomerECCCode]
+           ,[ExciseDutyAmount]
+           ,[CessDutyAmount]
+           ,[ECessDutyAmount]
+           ,[SHCessDutyAmount]
+           ,[VATRateAmount]
+           ,[InvoiceDate]
+           ,[InvoiceTime]
+           ,[RemovalDate]
+           ,[RemovalTime]
+           ,[InvoiceCreatedBy]
+           ,[MachineName])
+     VALUES
+           ( @InvoiceID
+           ,@CustomerCode
+           ,@BillingAddress
+           ,@ShippingAddress
+           ,@CustomerECCCode
+           ,@ExciseDutyAmount
+           ,@CessDutyAmount
+           ,@ECessDutyAmount
+           ,@SHCessDutyAmount
+           ,@VATRateAmount
+           ,@InvoiceDate
+           ,@InvoiceTime
+           ,@RemovalDate
+           ,@RemovalTime
+           ,@InvoiceCreatedBy
+           ,@MachineName)
+	
+	SET @InvoiceHistoryID = SCOPE_IDENTITY()
+
+
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblInvoice]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblInvoice](
+	[InvoiceID] [int] IDENTITY(1,1) NOT NULL,
+	[SerialNumber] [varchar](50) NOT NULL,
+	[PurchaseOrderCode] [varchar](50) NOT NULL,
+	[PODate] [datetime] NOT NULL,
+	[ExcisableName] [varchar](50) NOT NULL,
+	[ChapterHeading1] [varchar](200) NULL,
+	[ChapterHeading2] [varchar](100) NULL,
+	[RateOfDuty] [decimal](18, 0) NOT NULL,
+	[TransportMode] [varchar](50) NOT NULL,
+	[VehicleNumber] [varchar](50) NOT NULL,
+	[InvoiceNetValue] [money] NOT NULL,
+	[InvoiceGrossValue] [money] NOT NULL,
+	[CentralExciseDuty] [decimal](18, 0) NOT NULL,
+ CONSTRAINT [PK_tblInvoice] PRIMARY KEY CLUSTERED 
+(
+	[InvoiceID] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[XXXXGetCustomers]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[XXXXGetCustomers]
+@CustomerCode	varchar(50)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+IF(@CustomerCode = 0 )
+				BEGIN
+
+				SELECT [CustomerCode]
+					  ,[CustomerFirstName]
+					  ,[CustomerLastName]
+					  ,[BillingAddress]
+					  ,[ShippingAddress]
+					  ,[ECCNumber]
+					  ,[Country]
+					  ,[State]
+					  ,[City]
+					  ,[IsDomestic]
+					  ,[PinNumber]
+					  ,[PhoneNumber]
+					  ,[FaxNumber]
+					  ,[Email]
+					  ,[Description]
+				  FROM [FiltrumTAXInvoice].[dbo].[tblCustomer]
+
+				END
+ELSE
+
+			BEGIN
+				SELECT [FiltrumTAXInvoice].[dbo].[tblCustomer].[CustomerCode]
+				  ,[CustomerFirstName]
+				  ,[CustomerLastName]
+				  ,[BillingAddress]
+				  ,[ShippingAddress]
+				  ,[ECCNumber]
+				  ,[Country]
+				  ,[State]
+				  ,[City]
+				  ,[IsDomestic]
+				  ,[PinNumber]
+				  ,[PhoneNumber]
+				  ,[FaxNumber]
+				  ,[Email]
+				  ,[Description]
+				  ,[DutyID]
+				  ,[CessDuty]
+				  ,[ECessDuty]
+				  ,[SHCessDuty]
+				  ,[ExciseDuty]
+				  ,[VATRate]
+			  FROM [FiltrumTAXInvoice].[dbo].[tblCustomer]
+			  INNER JOIN 
+			  [FiltrumTAXInvoice].[dbo].[tblDuties] 
+			  ON 
+			  [FiltrumTAXInvoice].[dbo].[tblCustomer].[CustomerCode] = [FiltrumTAXInvoice].[dbo].[tblDuties].[CustomerCode]
+			  WHERE 
+			  [dbo].[tblCustomer].[CustomerCode] = @CustomerCode
+			END
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblInvoiceHistory]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblInvoiceHistory](
+	[InvoiceHistoryID] [int] IDENTITY(1,1) NOT NULL,
+	[InvoiceID] [int] NOT NULL,
+	[CustomerCode] [int] NOT NULL,
+	[BillingAddress] [varchar](200) NOT NULL,
+	[ShippingAddress] [varchar](200) NOT NULL,
+	[CustomerECCCode] [varchar](50) NOT NULL,
+	[ExciseDutyAmount] [money] NOT NULL,
+	[CessDutyAmount] [money] NOT NULL,
+	[ECessDutyAmount] [money] NOT NULL,
+	[SHCessDutyAmount] [money] NOT NULL,
+	[VATRateAmount] [money] NOT NULL,
+	[InvoiceDate] [datetime] NOT NULL,
+	[InvoiceTime] [datetime] NOT NULL,
+	[RemovalDate] [datetime] NOT NULL,
+	[RemovalTime] [datetime] NOT NULL,
+	[InvoiceCreatedBy] [varchar](50) NOT NULL,
+	[MachineName] [varchar](50) NOT NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblCustomer]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblCustomer](
+	[CustomerCode] [int] IDENTITY(1,1) NOT NULL,
+	[CustomerFirstName] [varchar](100) NOT NULL,
+	[CustomerLastName] [varchar](50) NULL,
+	[BillingAddress] [varchar](200) NOT NULL,
+	[ShippingAddress] [varchar](200) NOT NULL,
+	[ECCNumber] [varchar](50) NOT NULL,
+	[Country] [varchar](50) NULL,
+	[State] [varchar](50) NULL,
+	[City] [varchar](50) NULL,
+	[IsDomestic] [bit] NULL,
+	[PinNumber] [numeric](18, 0) NULL,
+	[PhoneNumber] [numeric](18, 0) NULL,
+	[FaxNumber] [numeric](18, 0) NULL,
+	[Email] [varchar](50) NULL,
+	[Description] [varchar](200) NULL,
+ CONSTRAINT [PK_tblCustomer] PRIMARY KEY CLUSTERED 
+(
+	[CustomerCode] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblDuties]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblDuties](
+	[DutyID] [int] IDENTITY(1,1) NOT NULL,
+	[CustomerCode] [int] NOT NULL,
+	[CessDuty] [float] NOT NULL,
+	[ECessDuty] [float] NOT NULL,
+	[SHCessDuty] [float] NOT NULL,
+	[ExciseDuty] [float] NOT NULL,
+	[VATRate] [float] NOT NULL,
+ CONSTRAINT [PK_tblDuties] PRIMARY KEY CLUSTERED 
+(
+	[DutyID] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblPOItem]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblPOItem](
+	[POItemID] [int] IDENTITY(1,1) NOT NULL,
+	[POItemName] [varchar](50) NOT NULL,
+	[ProductCode] [int] NOT NULL,
+	[CustomerPartNo] [varchar](50) NOT NULL,
+	[FFTLPartPartNo] [varchar](50) NOT NULL,
+	[DescriptionOfPackages] [varchar](100) NULL,
+	[NumberOfQuntity] [float] NOT NULL,
+	[UnitOfMesurement] [varchar](50) NOT NULL,
+	[PriceRate] [money] NOT NULL,
+ CONSTRAINT [PK_tblPOItem] PRIMARY KEY CLUSTERED 
+(
+	[POItemID] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblProduct]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblProduct](
+	[ProductCode] [varchar](50) NOT NULL,
+	[ProductName] [varchar](50) NOT NULL,
+	[ChapterHeading1] [varchar](50) NOT NULL,
+	[ChapterHeading2] [varchar](50) NULL,
+	[Description] [varchar](150) NULL,
+ CONSTRAINT [PK_tblProduct] PRIMARY KEY CLUSTERED 
+(
+	[ProductCode] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUsers]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will fetch all User info in User table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetUsers]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+SELECT [UserName]
+      ,[Password]
+      ,[UserType]
+      ,[Department]
+      ,[Description]
+      ,[CustomerManagement]
+      ,[ProductManagement]
+      ,[POManagement]
+      ,[InvoiceManagement]
+      ,[UserRoleManagement]
+      ,[CustomerDetails]
+      ,[ProductDetails]
+      ,[PODetails]
+      ,[InvoiceDetails]
+  FROM [FiltrumTAXInvoice].[dbo].[tblUserRoles]
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ValidateUser]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will  get PO for editing purpose
+-- =============================================
+CREATE PROCEDURE [dbo].[ValidateUser]
+@UserName varchar(50),
+@Password varchar(50),
+@ValidateResult int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+
+	IF EXISTS(SELECT [UserName]FROM [FiltrumTAXInvoice].[dbo].[tblUserRoles]
+	WHERE [UserName] = @UserName AND [Password] = @Password)
+				BEGIN 
+				SELECT @ValidateResult = 1
+				END
+	ELSE
+				BEGIN
+				SELECT @ValidateResult = 0
+				END
+			     
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SaveInvoicePOItems]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveInvoicePOItems]
+		    @InvoiceID int
+--           ,@PurchaseOrderCode varchar(50)
+--           ,@PODate datetime
+      	   ,@POItemID int
+           ,@POItemName varchar(50)
+           ,@CustomerPartNumber varchar(50)
+           ,@FFTLPartNumber varchar(50)
+           ,@PackagesDescription varchar(100)
+		,@TotalQuantity decimal(18,0)
+           ,@UnitOfQuanity varchar(50)
+           ,@PriceRate money
+		   ,@ItemTotalAmount money
+           ,@Description varchar(50)
+		   ,@InvoiceItemID int output
+		   ,@ResultValue int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+    INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoiceItems]
+           ([InvoiceID]
+           ,[POItemID]
+           ,[POItemName]
+           ,[CustomerPartNumber]
+           ,[FFTLPartNumber]
+           ,[PackagesDescription]
+		, [TotalQuantity]
+           ,[UnitOfQuanity]
+           ,[PriceRate]
+           ,[ItemTotalAmount]
+           ,[Description])
+     VALUES        
+            (@InvoiceID
+           ,@POItemID
+            ,@POItemName
+           ,@CustomerPartNumber
+           ,@FFTLPartNumber
+           ,@PackagesDescription
+			,@TotalQuantity
+           ,@UnitOfQuanity
+           ,@PriceRate
+		   ,@ItemTotalAmount
+           ,@Description)
+
+
+		SET @InvoiceItemID = SCOPE_IDENTITY()
+
+
+
+END
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblInvoiceItems]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblInvoiceItems](
+	[InvoiceItemID] [int] IDENTITY(1,1) NOT NULL,
+	[InvoiceID] [int] NOT NULL,
+	[POItemID] [int] NOT NULL,
+	[POItemName] [varchar](50) NOT NULL,
+	[CustomerPartNumber] [varchar](50) NOT NULL,
+	[FFTLPartNumber] [varchar](50) NOT NULL,
+	[PackagesDescription] [varchar](100) NOT NULL,
+	[TotalQuantity] [decimal](18, 0) NULL,
+	[UnitOfQuanity] [varchar](50) NOT NULL,
+	[PriceRate] [money] NOT NULL,
+	[ItemTotalAmount] [money] NOT NULL,
+	[Description] [varchar](50) NULL,
+ CONSTRAINT [PK_tblInvoiceItems] PRIMARY KEY CLUSTERED 
+(
+	[InvoiceItemID] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblUserRoles]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblUserRoles](
+	[UserName] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+	[UserType] [varchar](50) NOT NULL,
+	[Department] [varchar](50) NULL,
+	[Description] [varchar](150) NULL,
+	[CustomerManagement] [bit] NULL,
+	[CustomerAdd] [bit] NULL,
+	[CustomerModify] [bit] NULL,
+	[CustomerView] [bit] NULL,
+	[ProductManagement] [bit] NULL,
+	[ProductAdd] [bit] NULL,
+	[ProductModify] [bit] NULL,
+	[ProductView] [bit] NULL,
+	[POManagement] [bit] NULL,
+	[POAdd] [bit] NULL,
+	[POModify] [bit] NULL,
+	[POView] [bit] NULL,
+	[InvoiceManagement] [bit] NULL,
+	[InvoiceAdd] [bit] NULL,
+	[InvoiceView] [bit] NULL,
+	[UserRoleManagement] [bit] NULL,
+	[CustomerDetails] [bit] NULL,
+	[ProductDetails] [bit] NULL,
+	[PODetails] [bit] NULL,
+	[InvoiceDetails] [bit] NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ModifyPOItems]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the POItems into tblPOItem table and [tblPOtoPOItem]
+-- =============================================
+CREATE PROCEDURE [dbo].[ModifyPOItems]
+			@POItemName  varchar(50)
+		   ,@PurchaseOrderCode varchar(50)
+           ,@ProductCode int
+           ,@CustomerPartNo varchar(50)
+           ,@FFTLPartPartNo varchar(50)
+           ,@DescriptionOfPackages varchar(100)
+           ,@NumberOfQuntity decimal(18,0)
+           ,@UnitOfMesurement varchar(50)
+           ,@PriceRate money
+		   ,@POItemID int 
+		   
+
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+UPDATE [FiltrumTAXInvoice].[dbo].[tblPOItem]
+   SET [POItemName] = @POItemName
+      ,[ProductCode] = @ProductCode
+      ,[CustomerPartNo] = @CustomerPartNo
+      ,[FFTLPartPartNo] = @FFTLPartPartNo
+      ,[DescriptionOfPackages] = @DescriptionOfPackages
+      ,[NumberOfQuntity] = @NumberOfQuntity
+      ,[UnitOfMesurement] = @UnitOfMesurement
+      ,[PriceRate] = @PriceRate
+ WHERE [FiltrumTAXInvoice].[dbo].[tblPOItem].[POItemID] = @POItemID
+	
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblCustomerToInvoice]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblCustomerToInvoice](
+	[CustomerCode] [int] NOT NULL,
+	[InvoiceID] [int] NOT NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ModifyPurchaseOrder]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will modify the Purchase Orders (POs) into tblPurchaseOrder table
+-- =============================================
+CREATE PROCEDURE [dbo].[ModifyPurchaseOrder]
+			@PurchaseOrderCode varchar(50)
+           ,@Date datetime
+           ,@Description varchar(200)
+		   ,@PurchaseOrderID int 
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE [FiltrumTAXInvoice].[dbo].[tblPurchaseOrder]
+   SET [PurchaseOrderCode] = @PurchaseOrderCode
+      ,[Date] = @Date
+      ,[Description] = @Description
+ WHERE 
+		[FiltrumTAXInvoice].[dbo].[tblPurchaseOrder].[PurchaseOrderID] = @PurchaseOrderID
+
+		 	
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tblCustToPO]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[tblCustToPO](
+	[CustTOPoID] [int] IDENTITY(1,1) NOT NULL,
+	[CustomerCode] [int] NOT NULL,
+	[PurchaseOrderID] [int] NOT NULL,
+	[PurchaseOrderCode] [varchar](50) NOT NULL
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPurchaseOrderForEdit]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will  get PO for editing purpose
+-- =============================================
+CREATE PROCEDURE [dbo].[GetPurchaseOrderForEdit]
+@PurchaseOrderID	int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+SELECT  DISTINCT [tblPurchaseOrder].[PurchaseOrderID]
+      ,[tblPurchaseOrder].[PurchaseOrderCode]
+	  ,[CustomerCode]
+      ,[tblPurchaseOrder].[Date]
+      ,[tblPurchaseOrder].[Description]
+  FROM [FiltrumTAXInvoice].[dbo].[tblPurchaseOrder] INNER JOIN
+ [FiltrumTAXInvoice].[dbo].[tblCustToPO]     ON tblCustToPO.PurchaseOrderCode =  tblPurchaseOrder.PurchaseOrderCode
+ 
+			 
+			  WHERE 
+			  [FiltrumTAXInvoice].[dbo].[tblPurchaseOrder].[PurchaseOrderID] = @PurchaseOrderID
+			
+END
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[rptGetProductDetails]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 12-Apr-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[rptGetProductDetails]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+				SELECT    
+ 
+   DISTINCT tblProduct.ProductCode,
+	tblProduct.ProductName,
+	tblCustomer.CustomerCode,
+	tblCustomer.CustomerFirstName + tblCustomer.CustomerLastName as CustomerName,
+	tblPurchaseOrder.PurchaseOrderCode,
+	tblPOItem.POItemID,  
+	tblInvoice.SerialNumber ,
+	tblPOItem.POItemName,
+	tblInvoiceItems.TotalQuantity,
+    tblPOItem.UnitOfMesurement,
+	tblPOItem.PriceRate,
+	tblInvoice.PODate,
+    (tblPOItem.PriceRate * tblInvoiceItems.TotalQuantity) as Total
+FROM         tblProduct INNER JOIN
+                      tblPOItem ON tblProduct.ProductCode = tblPOItem.ProductCode INNER JOIN
+                      tblPOtoPOItem ON tblPOItem.POItemID = tblPOtoPOItem.POItemID INNER JOIN
+                      tblPurchaseOrder ON tblPOtoPOItem.PurchaseOrderCode = tblPurchaseOrder.PurchaseOrderCode INNER JOIN
+                      tblCustToPO ON tblPurchaseOrder.PurchaseOrderID = tblCustToPO.PurchaseOrderID INNER JOIN
+                      tblCustomer ON tblCustToPO.CustomerCode = tblCustomer.CustomerCode INNER JOIN
+                      tblInvoice ON tblPurchaseOrder.PurchaseOrderCode = tblInvoice.PurchaseOrderCode INNER JOIN
+					  tblInvoiceItems ON tblPOItem.POItemID = tblInvoiceItems.POItemID
+
+
+
+
+
+     
+
+END
+
+
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPurchaseOrdersOfthisCustomer]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 12-Apr-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetPurchaseOrdersOfthisCustomer]
+@CustomerCode int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+SELECT      tblCustomer.CustomerCode, 
+			tblCustomer.CustomerFirstName+ tblCustomer.CustomerLastName AS CustomerName, 
+            tblPurchaseOrder.PurchaseOrderID ,
+			tblPurchaseOrder.PurchaseOrderCode , 
+			tblPurchaseOrder.Date , 
+            tblPurchaseOrder.Description 
+
+FROM         tblCustomer INNER JOIN
+                      tblCustToPO ON tblCustomer.CustomerCode = tblCustToPO.CustomerCode INNER JOIN
+                      tblPurchaseOrder ON tblCustToPO.PurchaseOrderID = tblPurchaseOrder.PurchaseOrderID
+WHERE tblCustomer.CustomerCode = @CustomerCode
+
+END
+
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[rptGetCustomersDetails]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 12-Apr-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[rptGetCustomersDetails]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+				SELECT   
+						tblCustomer.CustomerCode, 
+						tblCustomer.CustomerFirstName + tblCustomer.CustomerLastName AS CustomerName, 
+
+						[ECCNumber],
+						[Country],
+						[City],
+					    [PhoneNumber],
+						[FaxNumber],
+     
+                        count(tblInvoice.InvoiceID ) as NoOfInvoice, 
+                        count(tblPurchaseOrder.PurchaseOrderID)as NoOfPOIDs, 
+                        count( tblPurchaseOrder.PurchaseOrderCode )as NoOfPOs
+FROM         tblCustomer INNER JOIN
+                      tblCustomerToInvoice ON tblCustomer.CustomerCode = tblCustomerToInvoice.CustomerCode INNER JOIN
+                      tblCustToPO ON tblCustomer.CustomerCode = tblCustToPO.CustomerCode INNER JOIN
+                      tblPurchaseOrder ON tblCustToPO.PurchaseOrderID = tblPurchaseOrder.PurchaseOrderID INNER JOIN
+                      tblInvoice ON tblCustomerToInvoice.InvoiceID = tblInvoice.InvoiceID
+				GROUP BY tblCustomer.CustomerCode,
+				tblCustomer.CustomerFirstName, 
+				tblCustomer.CustomerLastName,  
+				[ECCNumber],
+						[Country],
+						[City],
+					    [PhoneNumber],
+						[FaxNumber]
+     
+
+END
+
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetProductForEdit]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Product info in Product table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetProductForEdit]
+@ProductCode  varchar(50)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT DISTINCT tblProduct.[ProductCode]
+      ,[ProductName]
+      ,[ChapterHeading1]
+      ,[ChapterHeading2]
+      ,[Description]
+ FROM         tblPOtoPOItem INNER JOIN
+                      tblPOItem ON tblPOtoPOItem.POItemID = tblPOItem.POItemID INNER JOIN
+                      tblProduct ON tblPOItem.ProductCode = tblProduct.ProductCode
+WHERE     tblPOtoPOItem.PurchaseOrderCode = (select PurchaseOrderCode from tblpurchaseorder where 
+purchaseorderid = @ProductCode)
+END
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUniqeProductNamesOfPO]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 29-Mar-2008
+-- Description:	This proc will add the Product info in Product table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetUniqeProductNamesOfPO]
+@PurchaseOrderID  int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT     DISTINCT tblProduct.ProductCode , tblProduct.ProductName 
+FROM         tblPOtoPOItem INNER JOIN
+                      tblPOItem ON tblPOtoPOItem.POItemID = tblPOItem.POItemID INNER JOIN
+                      tblPurchaseOrder ON tblPOtoPOItem.PurchaseOrderCode = tblPurchaseOrder.PurchaseOrderCode INNER JOIN
+                      tblProduct ON tblPOItem.ProductCode = tblProduct.ProductCode
+	WHERE tblPurchaseOrder.PurchaseOrderID = @PurchaseOrderID
+			
+END
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPurchaseOrders]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will add the PO info in PO table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetPurchaseOrders]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SELECT DISTINCT 
+                      tblCustomer.CustomerCode, tblPurchaseOrder.PurchaseOrderID, tblPurchaseOrder.PurchaseOrderCode, tblPurchaseOrder.Date, 
+                      tblPurchaseOrder.Description, tblCustomer.CustomerFirstName+ tblCustomer.CustomerLastName as CustomerName
+FROM         tblPurchaseOrder INNER JOIN
+                      tblCustToPO ON tblPurchaseOrder.PurchaseOrderID = tblCustToPO.PurchaseOrderID INNER JOIN
+                      tblCustomer ON tblCustToPO.CustomerCode = tblCustomer.CustomerCode
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPurchaseOrdersOfCustomer]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will  get PO for editing purpose
+-- =============================================
+CREATE PROCEDURE [dbo].[GetPurchaseOrdersOfCustomer]
+@CustomerCode	int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+SELECT      tblCustomer.CustomerCode 
+          , tblPurchaseOrder.PurchaseOrderCode 
+          , tblPurchaseOrder.PurchaseOrderID 
+FROM         tblCustomer INNER JOIN
+            tblCustToPO ON 
+			tblCustomer.CustomerCode = tblCustToPO.CustomerCode INNER JOIN
+            tblPurchaseOrder ON 
+			tblCustToPO.PurchaseOrderID = tblPurchaseOrder.PurchaseOrderID
+WHERE 
+			tblCustomer.CustomerCode = @CustomerCode
+ 
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AddPurchaseOrder]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Purchase Orders (POs) into tblPurchaseOrder table
+-- =============================================
+CREATE PROCEDURE [dbo].[AddPurchaseOrder]
+			@PurchaseOrderCode varchar(50)
+		   ,@CustomerCode int
+           ,@Date datetime
+           ,@Description varchar(200)
+		   ,@PurchaseOrderID int output
+		   ,@CustTOPoID int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+      INSERT INTO [FiltrumTAXInvoice].[dbo].[tblPurchaseOrder]
+           ([PurchaseOrderCode]
+           ,[Date]
+           ,[Description])
+     VALUES
+           (@PurchaseOrderCode
+           ,@Date
+          ,@Description)
+
+		  
+	SET @PurchaseOrderID = SCOPE_IDENTITY()
+
+---	Inserting PO acorss each Customer
+
+	INSERT INTO [FiltrumTAXInvoice].[dbo].[tblCustToPO]
+           ([CustomerCode]
+           ,[PurchaseOrderID]
+			,[PurchaseOrderCode])
+     VALUES
+           (@CustomerCode 
+           ,@PurchaseOrderID
+			,@PurchaseOrderCode)
+
+	SET @CustTOPoID = SCOPE_IDENTITY()
+	
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetPOItemsAsPerCustomerPO]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 28-Mar-2008
+-- Description:	This proc will add the POItems info in POItem table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetPOItemsAsPerCustomerPO]
+--@PurchaseOrderCode varchar(50),
+--@CustomerCode int
+
+@PurchaseOrderID int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+		SELECT DISTINCT 
+                        tblCustomer.CustomerCode, 
+						tblPurchaseOrder.PurchaseOrderID, 
+						tblCustomer.CustomerFirstName + tblCustomer.CustomerLastName AS CustomerName, 
+						tblPurchaseOrder.PurchaseOrderCode, 
+	                    tblCustomer.CustomerFirstName, 
+						tblCustomer.CustomerLastName, 
+						tblPOItem.POItemID, 
+						tblPOItem.POItemName, 
+						tblProduct.ProductName,
+						tblPOItem.ProductCode, 
+						tblPOItem.CustomerPartNo, 
+						tblPOItem.FFTLPartPartNo, 
+						tblPOItem.DescriptionOfPackages,
+						tblPOItem.NumberOfQuntity, 
+						tblPOItem.UnitOfMesurement, 
+						 tblPOItem.PriceRate
+FROM         tblPOtoPOItem INNER JOIN
+                      tblPurchaseOrder INNER JOIN
+                      tblCustToPO ON tblPurchaseOrder.PurchaseOrderID = tblCustToPO.PurchaseOrderID INNER JOIN
+                      tblCustomer ON tblCustToPO.CustomerCode = tblCustomer.CustomerCode ON 
+                      tblPOtoPOItem.PurchaseOrderCode = tblPurchaseOrder.PurchaseOrderCode INNER JOIN
+                      tblPOItem ON tblPOtoPOItem.POItemID = tblPOItem.POItemID INNER JOIN
+					  tblProduct ON tblProduct.ProductCode = tblPOItem.ProductCode
+WHERE
+tblPurchaseOrder.PurchaseOrderID = @PurchaseOrderID
+--AND tblCustomer.CustomerCode = @CustomerCode 
+	
+
+END
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AddPOItems]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the POItems into tblPOItem table and [tblPOtoPOItem]
+-- =============================================
+CREATE PROCEDURE [dbo].[AddPOItems]
+			@POItemName  varchar(50)
+		   ,@PurchaseOrderCode varchar(50)
+           ,@ProductCode int
+           ,@CustomerPartNo varchar(50)
+           ,@FFTLPartPartNo varchar(50)
+        --   ,@DescriptionOfPackages varchar(100)
+           ,@NumberOfQuntity decimal(18,0)
+           ,@UnitOfMesurement varchar(50)
+           ,@PriceRate money
+		   ,@POItemID int output
+		   ,@POtoPOItemID int output
+
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO [FiltrumTAXInvoice].[dbo].[tblPOItem]
+           ([POItemName]
+           ,[ProductCode]
+           ,[CustomerPartNo]
+           ,[FFTLPartPartNo]
+         --  ,[DescriptionOfPackages]
+           ,[NumberOfQuntity]
+           ,[UnitOfMesurement]
+           ,[PriceRate])
+     VALUES
+           (@POItemName  
+           ,@ProductCode
+           ,@CustomerPartNo
+           ,@FFTLPartPartNo
+         --  ,@DescriptionOfPackages
+           ,@NumberOfQuntity
+           ,@UnitOfMesurement
+           ,@PriceRate)
+
+		  
+	SET @POItemID = SCOPE_IDENTITY()
+
+---	Inserting PO acorss each Customer
+
+	INSERT INTO [FiltrumTAXInvoice].[dbo].[tblPOtoPOItem]
+           ([PurchaseOrderCode]
+           ,[POItemID])
+     VALUES
+           (@PurchaseOrderCode
+           ,@POItemID)
+
+	SET @POtoPOItemID = SCOPE_IDENTITY()
+	
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetInvoicesOfCustomer]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will  get PO for editing purpose
+-- =============================================
+CREATE PROCEDURE [dbo].[GetInvoicesOfCustomer]
+@CustomerCode	int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+SELECT     tblCustomer.CustomerCode, 
+tblCustomer.CustomerFirstName+  tblCustomer.CustomerLastName as CustomerName,
+ tblCustomer.BillingAddress, 
+ tblCustomer.ShippingAddress,
+ tblCustomer.ECCNumber, 
+tblCustomer.Country, 
+tblCustomer.State, 
+tblCustomer.City, 
+tblCustomer.IsDomestic, 
+tblCustomer.PinNumber, 
+tblCustomer.PhoneNumber, 
+tblCustomer.FaxNumber, 
+tblCustomer.Email,
+ tblCustomer.Description,
+ tblCustomerToInvoice.InvoiceID, 
+ tblInvoice.SerialNumber,     
+ tblInvoice.PurchaseOrderCode, 
+tblInvoice.PODate, 
+tblInvoice.ExcisableName,
+ tblInvoice.ChapterHeading1, 
+tblInvoice.ChapterHeading2, 
+ tblInvoice.RateOfDuty,
+ tblInvoice.TransportMode, 
+tblInvoice.VehicleNumber, 
+tblInvoice.InvoiceNetValue, 
+tblInvoice.InvoiceGrossValue,
+tblInvoice.CentralExciseDuty,
+ tblInvoiceHistory.InvoiceHistoryID,
+ tblInvoiceHistory.CustomerECCCode,
+ tblInvoiceHistory.ExciseDutyAmount,
+ tblInvoiceHistory.CessDutyAmount, 
+tblInvoiceHistory.ECessDutyAmount,
+ tblInvoiceHistory.SHCessDutyAmount, 
+tblInvoiceHistory.VATRateAmount,
+tblInvoiceHistory.InvoiceDate,
+ tblInvoiceHistory.InvoiceTime, 
+tblInvoiceHistory.RemovalDate, 
+tblInvoiceHistory.RemovalTime, 
+tblInvoiceHistory.InvoiceCreatedBy,
+ tblInvoiceHistory.MachineName,                   
+ tblInvoice.RateOfDuty , 
+ tblInvoice.InvoiceNetValue , 
+tblInvoice.InvoiceGrossValue ,
+ tblInvoice.CentralExciseDuty , 
+ tblInvoiceHistory.InvoiceDate ,
+ tblInvoiceHistory.InvoiceTime 
+
+FROM         tblCustomer INNER JOIN
+                      tblCustomerToInvoice ON tblCustomer.CustomerCode = tblCustomerToInvoice.CustomerCode INNER JOIN
+                      tblInvoice ON tblCustomerToInvoice.InvoiceID = tblInvoice.InvoiceID INNER JOIN
+                      tblInvoiceHistory ON tblInvoice.InvoiceID = tblInvoiceHistory.InvoiceID
+WHERE     (tblCustomer.CustomerCode =@CustomerCode)
+ 
+END
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetLastInvoiceID]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 7-Apr-2008
+-- Description:	This proc fetches the last ID records from Invoice table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetLastInvoiceID]
+@ResultValue	int output
+
+AS
+
+
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+SELECT @ResultValue = MAX([InvoiceID])
+        FROM [FiltrumTAXInvoice].[dbo].[tblInvoice]
+
+END
+
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SelectInvoice]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[SelectInvoice]
+(
+	@InvoiceID int
+)
+AS
+	SET NOCOUNT ON;
+SELECT     tblInvoice.InvoiceID, tblInvoice.SerialNumber, tblInvoice.PurchaseOrderCode, tblInvoice.PODate, tblInvoice.ExcisableName, 
+                      tblInvoice.ChapterHeading1, tblInvoice.ChapterHeading2, tblInvoice.RateOfDuty, tblInvoice.TransportMode, tblInvoice.VehicleNumber, 
+                      tblInvoice.InvoiceNetValue, tblInvoice.InvoiceGrossValue, tblInvoice.CentralExciseDuty, tblInvoiceHistory.InvoiceHistoryID, 
+                      tblInvoiceHistory.InvoiceID AS Expr1, tblInvoiceHistory.CustomerCode, tblInvoiceHistory.BillingAddress, tblInvoiceHistory.ShippingAddress, 
+                      tblInvoiceHistory.CustomerECCCode, tblInvoiceHistory.ExciseDutyAmount, tblInvoiceHistory.CessDutyAmount, tblInvoiceHistory.ECessDutyAmount, 
+                      tblInvoiceHistory.SHCessDutyAmount, tblInvoiceHistory.VATRateAmount, tblInvoiceHistory.InvoiceDate, tblInvoiceHistory.InvoiceTime, 
+                      tblInvoiceHistory.RemovalDate, tblInvoiceHistory.RemovalTime, tblInvoiceHistory.InvoiceCreatedBy, tblInvoiceHistory.MachineName
+FROM         tblInvoice INNER JOIN
+                      tblInvoiceHistory ON tblInvoice.InvoiceID = tblInvoiceHistory.InvoiceID INNER JOIN
+                      tblInvoiceItems ON tblInvoice.InvoiceID = tblInvoiceItems.InvoiceID
+WHERE     (tblInvoice.InvoiceID = @InvoiceID)
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SelectPrintInvoice]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[SelectPrintInvoice]
+(
+	@InvoiceID int
+)
+AS
+	SET NOCOUNT ON;
+SELECT     tblInvoiceHistory.InvoiceHistoryID, tblInvoiceHistory.InvoiceID, tblInvoiceHistory.CustomerCode, tblInvoiceHistory.BillingAddress, 
+                      tblInvoiceHistory.ShippingAddress, tblInvoiceHistory.CustomerECCCode, tblInvoiceHistory.ExciseDutyAmount, tblInvoiceHistory.CessDutyAmount, 
+                      tblInvoiceHistory.ECessDutyAmount, tblInvoiceHistory.SHCessDutyAmount, tblInvoiceHistory.VATRateAmount, tblInvoiceHistory.InvoiceDate, 
+                      tblInvoiceHistory.InvoiceTime, tblInvoiceHistory.RemovalDate, tblInvoiceHistory.RemovalTime, tblInvoiceHistory.InvoiceCreatedBy, 
+                      tblInvoiceHistory.MachineName, tblInvoice.InvoiceID AS Expr1, tblInvoice.SerialNumber, tblInvoice.PurchaseOrderCode, tblInvoice.PODate, 
+                      tblInvoice.ExcisableName, tblInvoice.ChapterHeading1, tblInvoice.ChapterHeading2, tblInvoice.RateOfDuty, tblInvoice.TransportMode, 
+                      tblInvoice.VehicleNumber, tblInvoice.InvoiceNetValue, tblInvoice.InvoiceGrossValue, tblInvoice.CentralExciseDuty, tblInvoiceItems.InvoiceItemID, 
+                      tblInvoiceItems.InvoiceID AS Expr2, tblInvoiceItems.POItemID, tblInvoiceItems.POItemName, tblInvoiceItems.CustomerPartNumber, 
+                      tblInvoiceItems.FFTLPartNumber, tblInvoiceItems.PackagesDescription, tblInvoiceItems.UnitOfQuanity, tblInvoiceItems.PriceRate, 
+                      tblInvoiceItems.ItemTotalAmount, tblInvoiceItems.Description
+FROM         tblInvoice INNER JOIN
+                      tblInvoiceHistory ON tblInvoice.InvoiceID = tblInvoiceHistory.InvoiceID INNER JOIN
+                      tblInvoiceItems ON tblInvoice.InvoiceID = tblInvoiceItems.InvoiceID
+WHERE     (tblInvoice.InvoiceID = @InvoiceID)
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[NewSelectCommand]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[NewSelectCommand]
+(
+	@InvoiceID int
+)
+AS
+	SET NOCOUNT ON;
+SELECT     tblInvoiceHistory.InvoiceHistoryID, tblInvoiceHistory.InvoiceID, tblInvoiceHistory.CustomerCode, tblInvoiceHistory.BillingAddress, 
+                      tblInvoiceHistory.ShippingAddress, tblInvoiceHistory.CustomerECCCode, tblInvoiceHistory.ExciseDutyAmount, tblInvoiceHistory.CessDutyAmount, 
+                      tblInvoiceHistory.ECessDutyAmount, tblInvoiceHistory.SHCessDutyAmount, tblInvoiceHistory.VATRateAmount, tblInvoiceHistory.InvoiceDate, 
+                      tblInvoiceHistory.InvoiceTime, tblInvoiceHistory.RemovalDate, tblInvoiceHistory.RemovalTime, tblInvoiceHistory.InvoiceCreatedBy, 
+                      tblInvoiceHistory.MachineName, tblInvoice.InvoiceID AS Expr1, tblInvoice.SerialNumber, tblInvoice.PurchaseOrderCode, tblInvoice.PODate, 
+                      tblInvoice.ExcisableName, tblInvoice.ChapterHeading1, tblInvoice.ChapterHeading2, tblInvoice.RateOfDuty, tblInvoice.TransportMode, 
+                      tblInvoice.VehicleNumber, tblInvoice.InvoiceNetValue, tblInvoice.InvoiceGrossValue, tblInvoice.CentralExciseDuty, tblInvoiceItems.InvoiceItemID, 
+                      tblInvoiceItems.InvoiceID AS Expr2, tblInvoiceItems.POItemID, tblInvoiceItems.POItemName, tblInvoiceItems.CustomerPartNumber, 
+                      tblInvoiceItems.FFTLPartNumber, tblInvoiceItems.PackagesDescription, tblInvoiceItems.UnitOfQuanity, tblInvoiceItems.PriceRate, 
+                      tblInvoiceItems.ItemTotalAmount, tblInvoiceItems.Description
+FROM         tblInvoice INNER JOIN
+                      tblInvoiceHistory ON tblInvoice.InvoiceID = tblInvoiceHistory.InvoiceID INNER JOIN
+                      tblInvoiceItems ON tblInvoice.InvoiceID = tblInvoiceItems.InvoiceID
+WHERE     (tblInvoice.InvoiceID = @InvoiceID)
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SaveInvoice]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveInvoice]
+		   @SerialNumber varchar(50)
+			,@CustomerCode int
+           ,@PurchaseOrderCode varchar(50)
+           ,@PODate datetime
+           ,@ExcisableName varbinary(50)
+           ,@ChapterHeading1 varchar(200)
+           ,@ChapterHeading2 varchar(100)
+           ,@RateOfDuty decimal(18,0)
+           ,@TransportMode varchar(50)
+           ,@VehicleNumber varchar(50)
+--
+           ,@InvoiceNetValue money
+           ,@InvoiceGrossValue money
+           ,@CentralExciseDuty decimal(18,0)
+			,@BillingAddress varchar(200)
+           ,@ShippingAddress varchar(200)
+           ,@CustomerECCCode varbinary(50)
+           ,@ExciseDutyAmount money
+           ,@CessDutyAmount money
+           ,@ECessDutyAmount money
+           ,@SHCessDutyAmount money
+--
+           ,@VATRateAmount money
+           ,@InvoiceDate datetime
+           ,@InvoiceTime datetime
+           ,@RemovalDate datetime
+           ,@RemovalTime datetime
+           ,@InvoiceCreatedBy varchar(50)
+           ,@MachineName varchar(50)
+		   ,@POItemID int
+           ,@POItemName varchar(50)
+           ,@CustomerPartNumber varchar(50)
+--
+           ,@FFTLPartNumber varchar(50)
+           ,@PackagesDescription varchar(100)
+           ,@UnitOfQuanity decimal(18,0)
+           ,@PriceRate money
+		,@ItemTotalAmount money
+           ,@Description varchar(50)
+		   , @InvoiceID int output
+			,@InvoiceHistoryID int output
+			,@InvoiceItemID int output
+			,@ResultValue int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+     INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoice]
+           ([InvoiceID]
+           ,[SerialNumber]
+           ,[PurchaseOrderCode]
+           ,[PODate]
+           ,[ExcisableName]
+           ,[ChapterHeading1]
+           ,[ChapterHeading2]
+           ,[RateOfDuty]
+           ,[TransportMode]
+           ,[VehicleNumber]
+           ,[InvoiceNetValue]
+           ,[InvoiceGrossValue]
+           ,[CentralExciseDuty])
+     VALUES
+           (@InvoiceID
+           ,@SerialNumber
+           ,@PurchaseOrderCode
+           ,@PODate
+           ,@ExcisableName
+           ,@ChapterHeading1
+           ,@ChapterHeading2
+           ,@RateOfDuty
+           ,@TransportMode
+           ,@VehicleNumber
+           ,@InvoiceNetValue
+           ,@InvoiceGrossValue
+           ,@CentralExciseDuty)
+
+		SET @InvoiceID = SCOPE_IDENTITY()
+
+--- Creating Customer and Invoice Linking
+	
+INSERT INTO [FiltrumTAXInvoice].[dbo].[tblCustomerToInvoice]
+           ([CustomerCode]
+           ,[InvoiceID])
+     VALUES
+           (@CustomerCode
+           ,@InvoiceID)
+
+---Inserting Invoice History related to Customer in tblInvoiceHistory Table
+
+   INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoiceHistory]
+           ([InvoiceID]
+           ,[CustomerCode]
+           ,[BillingAddress]
+           ,[ShippingAddress]
+           ,[CustomerECCCode]
+           ,[ExciseDutyAmount]
+           ,[CessDutyAmount]
+           ,[ECessDutyAmount]
+           ,[SHCessDutyAmount]
+           ,[VATRateAmount]
+           ,[InvoiceDate]
+           ,[InvoiceTime]
+           ,[RemovalDate]
+           ,[RemovalTime]
+           ,[InvoiceCreatedBy]
+           ,[MachineName])
+     VALUES
+           ( @InvoiceID
+           ,@CustomerCode
+           ,@BillingAddress
+           ,@ShippingAddress
+           ,@CustomerECCCode
+           ,@ExciseDutyAmount
+           ,@CessDutyAmount
+           ,@ECessDutyAmount
+           ,@SHCessDutyAmount
+           ,@VATRateAmount
+           ,@InvoiceDate
+           ,@InvoiceTime
+           ,@RemovalDate
+           ,@RemovalTime
+           ,@InvoiceCreatedBy
+           ,@MachineName)
+	
+	SET @InvoiceHistoryID = SCOPE_IDENTITY()
+
+
+----Inserting POItems of current Invoice in tblInvoiceItems
+
+INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoiceItems]
+           ([InvoiceID]
+           ,[POItemID]
+           ,[POItemName]
+           ,[CustomerPartNumber]
+           ,[FFTLPartNumber]
+           ,[PackagesDescription]
+           ,[UnitOfQuanity]
+           ,[PriceRate]
+			,[ItemTotalAmount]
+           ,[Description])
+     VALUES
+           (@InvoiceID
+           ,@POItemID
+           ,@POItemName
+           ,@CustomerPartNumber
+           ,@FFTLPartNumber
+           ,@PackagesDescription
+           ,@UnitOfQuanity
+           ,@PriceRate
+		   ,@ItemTotalAmount
+           ,@Description)
+
+		SET @InvoiceItemID = SCOPE_IDENTITY()
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AddInvoice]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[AddInvoice]
+		   @SerialNumber varchar(50)
+	       ,@CustomerCode int 
+		   ,@PurchaseOrderCode varchar(50)
+           ,@PODate datetime
+           ,@ExcisableName varchar(50)
+           ,@ChapterHeading1 varchar(200)
+           ,@ChapterHeading2 varchar(100)
+           ,@RateOfDuty decimal(18,0)
+           ,@TransportMode varchar(50)
+           ,@VehicleNumber varchar(50)
+          ,@InvoiceNetValue money
+           ,@InvoiceGrossValue money
+           ,@CentralExciseDuty decimal(18,0)
+		   , @InvoiceID int output			
+			,@ResultValue int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+     INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoice]
+           ([SerialNumber]
+           ,[PurchaseOrderCode]
+           ,[PODate]
+           ,[ExcisableName]
+           ,[ChapterHeading1]
+           ,[ChapterHeading2]
+           ,[RateOfDuty]
+           ,[TransportMode]
+           ,[VehicleNumber]
+           ,[InvoiceNetValue]
+           ,[InvoiceGrossValue]
+           ,[CentralExciseDuty])
+     VALUES
+           (@SerialNumber
+           ,@PurchaseOrderCode
+           ,@PODate
+           ,@ExcisableName
+           ,@ChapterHeading1
+           ,@ChapterHeading2
+           ,@RateOfDuty
+           ,@TransportMode
+           ,@VehicleNumber
+           ,@InvoiceNetValue
+           ,@InvoiceGrossValue
+           ,@CentralExciseDuty)
+
+		SET @InvoiceID = SCOPE_IDENTITY()
+
+--- Creating Customer and Invoice Linking
+	
+INSERT INTO [FiltrumTAXInvoice].[dbo].[tblCustomerToInvoice]
+           ([CustomerCode]
+           ,[InvoiceID])
+     VALUES
+           (@CustomerCode
+           ,@InvoiceID)
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SaveInvoiceHistory]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the POItems into tblPOItem table and [tblPOtoPOItem]
+-- =============================================
+CREATE PROCEDURE [dbo].[SaveInvoiceHistory]
+		   @InvoiceID int 
+,@CustomerCode int
+	,@BillingAddress varchar(200)
+,@ShippingAddress varchar(200)
+,@CustomerECCCode varchar(50)
+,@ExciseDutyAmount money
+,@CessDutyAmount money
+          ,@ECessDutyAmount money
+,@SHCessDutyAmount money
+,@VATRateAmount money
+,@InvoiceDate datetime
+,@InvoiceTime datetime
+,@RemovalDate datetime
+,@RemovalTime datetime
+,@InvoiceCreatedBy varchar(50)
+,@MachineName varchar(50)
+,@InvoiceHistoryID int output
+,@ResultValue int output
+
+
+
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    
+	  INSERT INTO [FiltrumTAXInvoice].[dbo].[tblInvoiceHistory]
+           ([InvoiceID]
+           ,[CustomerCode]
+           ,[BillingAddress]
+           ,[ShippingAddress]
+           ,[CustomerECCCode]
+           ,[ExciseDutyAmount]
+           ,[CessDutyAmount]
+           ,[ECessDutyAmount]
+           ,[SHCessDutyAmount]
+           ,[VATRateAmount]
+           ,[InvoiceDate]
+           ,[InvoiceTime]
+           ,[RemovalDate]
+           ,[RemovalTime]
+           ,[InvoiceCreatedBy]
+           ,[MachineName])
+     VALUES
+           (@InvoiceID
+           ,@CustomerCode
+           ,@BillingAddress
+           ,@ShippingAddress
+           ,@CustomerECCCode
+           ,@ExciseDutyAmount
+           ,@CessDutyAmount
+           ,@ECessDutyAmount
+           ,@SHCessDutyAmount
+           ,@VATRateAmount
+           ,@InvoiceDate
+           ,@InvoiceTime
+           ,@RemovalDate
+           ,@RemovalTime
+           ,@InvoiceCreatedBy
+           ,@MachineName)
+	
+	SET @InvoiceHistoryID = SCOPE_IDENTITY()
+
+
+	
+	
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ModifyCustomer]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 23:3:2008
+-- Description:	This SP modifies the customer details
+-- =============================================
+CREATE PROCEDURE [dbo].[ModifyCustomer]
+@CustomerCode	varchar(50),
+@CustomerFirstName varchar(50),
+@CustomerLastName varchar(50),
+@BillingAddress	  varchar(200),
+@ShippingAddress	varchar(200),
+@ECCNumber	varchar(50),
+@Country varchar(50),
+@State varchar(50),
+@City varchar(50),
+@PinNumber int,
+@PhoneNumber int,
+@FaxNumber int,
+@Email varchar(50),
+@IsDomestic	 bit,
+@Description	varchar(200),
+@CessDuty  float,
+@ECessDuty float,
+@SHCessDuty float,
+@ExciseDuty float,
+@VATRate float,
+@ResultValue int output
+
+
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+UPDATE [FiltrumTAXInvoice].[dbo].[tblCustomer]
+   SET [CustomerFirstName] = @CustomerFirstName
+	  ,[CustomerLastName] = @CustomerLastName
+      ,[BillingAddress] = @BillingAddress
+      ,[ShippingAddress] = @ShippingAddress
+      ,[ECCNumber] = @ECCNumber
+      ,[IsDomestic] = @IsDomestic
+	  ,[Country] = @Country
+      ,[State] = @State
+      ,[City] = @City    
+      ,[PinNumber] = @PinNumber
+      ,[PhoneNumber] = @PhoneNumber
+      ,[FaxNumber] = @FaxNumber
+      ,[Email] = @Email
+      ,[Description] = @Description
+ WHERE [dbo].[tblCustomer].[CustomerCode] = @CustomerCode
+
+
+
+
+------ UPdate Duty table
+
+UPDATE [FiltrumTAXInvoice].[dbo].[tblDuties]
+   SET [CessDuty] = @CessDuty
+      ,[ECessDuty] = @ECessDuty
+      ,[SHCessDuty] = @SHCessDuty
+      ,[ExciseDuty] = @ExciseDuty
+      ,[VATRate] = @VATRate
+ WHERE [dbo].[tblDuties].[CustomerCode] = @CustomerCode
+
+ if(@@Error = 0)
+BEGIN
+ SELECT @ResultValue = 1
+END
+ else
+BEGIN
+ SELECT @ResultValue =-1 
+END
+
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AddCustomer]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 23-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[AddCustomer]
+			
+           @CustomerFirstName varchar(100)
+           ,@CustomerLastName varchar(50)
+           ,@BillingAddress varchar(200)
+           ,@ShippingAddress varchar(200)
+           ,@ECCNumber varchar(50)
+           ,@Country varchar(50)
+           ,@State varchar(50)
+           ,@City varchar(50)
+           ,@IsDomestic bit
+           ,@PinNumber numeric
+           ,@PhoneNumber numeric
+           ,@FaxNumber numeric
+           ,@Email varchar(50)
+           ,@Description varchar(200)
+		   ,@CessDuty float
+           ,@ECessDuty float
+           ,@SHCessDuty float
+           ,@ExciseDuty float
+           ,@VATRate float
+		   ,@ResultValue int output
+		   ,@DutyID int output
+			,@CustomerCode int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+      INSERT INTO [FiltrumTAXInvoice].[dbo].[tblCustomer]
+           ( [CustomerFirstName]
+           ,[CustomerLastName]
+           ,[BillingAddress]
+           ,[ShippingAddress]
+           ,[ECCNumber]
+           ,[Country]
+           ,[State]
+           ,[City]
+           ,[IsDomestic]
+           ,[PinNumber]
+           ,[PhoneNumber]
+           ,[FaxNumber]
+           ,[Email]
+           ,[Description])
+     VALUES
+           (@CustomerFirstName
+           ,@CustomerLastName
+           ,@BillingAddress
+           ,@ShippingAddress
+           ,@ECCNumber
+           ,@Country
+           ,@State
+           ,@City
+           ,@IsDomestic
+           ,@PinNumber
+           ,@PhoneNumber
+           ,@FaxNumber
+           ,@Email
+           ,@Description)
+
+	SET @CustomerCode = SCOPE_IDENTITY()
+
+---Inserting Duties related to Customer in tblDuties Table
+	
+INSERT INTO [FiltrumTAXInvoice].[dbo].[tblDuties]
+           ([CustomerCode]
+           ,[CessDuty]
+           ,[ECessDuty]
+           ,[SHCessDuty]
+           ,[ExciseDuty]
+           ,[VATRate])
+     VALUES
+           (@CustomerCode
+           ,@CessDuty
+           ,@ECessDuty
+           ,@SHCessDuty
+           ,@ExciseDuty
+           ,@VATRate)
+	
+	SET @DutyID = SCOPE_IDENTITY()
+
+  if(@@ERROR <> 0 )
+   SELECT @ResultValue = 1
+  ELSE
+	SELECT @ResultValue = -1
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AddProduct]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Product info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[AddProduct]
+@ProductCode  varchar(50),
+@ProductName varchar(50),
+@ChapterHeading1 varchar(50),
+@ChapterHeading2 varchar(50),
+@Description varchar(150),
+@ResultValue int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+      
+			INSERT INTO [FiltrumTAXInvoice].[dbo].[tblProduct]
+           ([ProductCode]
+           ,[ProductName]
+           ,[ChapterHeading1]
+           ,[ChapterHeading2]
+           ,[Description])
+     VALUES
+           (@ProductCode
+           ,@ProductName
+           ,@ChapterHeading1
+           ,@ChapterHeading2
+           ,@Description)
+	
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ModifyProduct]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will modify the Product info in Product table
+-- =============================================
+CREATE PROCEDURE [dbo].[ModifyProduct]
+@ProductCode  varchar(50),
+@ProductName varchar(50),
+@ChapterHeading1 varchar(50),
+@ChapterHeading2 varchar(50),
+@Description varchar(150),
+@ResultValue int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	
+      
+	UPDATE [FiltrumTAXInvoice].[dbo].[tblProduct]
+   SET [ProductCode] = @ProductCode
+      ,[ProductName] = @ProductName
+      ,[ChapterHeading1] = @ChapterHeading1
+      ,[ChapterHeading2] = @ChapterHeading2
+      ,[Description] = @Description
+ WHERE [FiltrumTAXInvoice].[dbo].[tblProduct].[ProductCode] = @ProductCode
+
+if(@@Error = 0)
+BEGIN
+ SELECT @ResultValue = 1
+END
+ else
+BEGIN
+ SELECT @ResultValue =-1 
+END
+
+          
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetProductDetails]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc fetches the records from Product table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetProductDetails]
+@ProductCode	varchar(50)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+IF(@productCode = 0 )
+		BEGIN
+		   SELECT [ProductCode]
+			  ,[ProductName]
+			  ,[ChapterHeading1]
+			  ,[ChapterHeading2]
+			  ,[Description]
+		  FROM [FiltrumTAXInvoice].[dbo].[tblProduct]
+		END
+ELSE
+		BEGIN
+		 SELECT [ProductCode]
+			  ,[ProductName]
+			  ,[ChapterHeading1]
+			  ,[ChapterHeading2]
+			  ,[Description]
+		  FROM [FiltrumTAXInvoice].[dbo].[tblProduct]
+		WHERE
+		[FiltrumTAXInvoice].[dbo].[tblProduct].[ProductCode] = @ProductCode
+		END
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetProducts]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will add the Product info in Product table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetProducts]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+			SELECT [ProductCode]
+      ,[ProductName]
+      ,[ChapterHeading1]
+      ,[ChapterHeading2]
+      ,[Description]
+  FROM [FiltrumTAXInvoice].[dbo].[tblProduct]
+
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GetUserForEdit]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 21-Mar-2008
+-- Description:	This proc will add the Product info in Product table
+-- =============================================
+CREATE PROCEDURE [dbo].[GetUserForEdit]
+@UserName  varchar(50)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT [UserName]
+      ,[Password]
+      ,[UserType]
+      ,[Department]
+      ,[Description]
+      ,[CustomerManagement]
+      ,[CustomerAdd]
+      ,[CustomerModify]
+      ,[CustomerView]
+      ,[ProductManagement]
+      ,[ProductAdd]
+      ,[ProductModify]
+      ,[ProductView]
+      ,[POManagement]
+      ,[POAdd]
+      ,[POModify]
+      ,[POView]
+      ,[InvoiceManagement]
+      ,[InvoiceAdd]
+      ,[InvoiceView]
+      ,[UserRoleManagement]
+      ,[CustomerDetails]
+      ,[ProductDetails]
+      ,[PODetails]
+      ,[InvoiceDetails]
+  FROM [FiltrumTAXInvoice].[dbo].[tblUserRoles]
+	WHERE
+[FiltrumTAXInvoice].[dbo].[tblUserRoles].[UserName] = @UserName
+	
+			
+END
+
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[AddUser]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 23-Mar-2008
+-- Description:	This proc will add the Customer info in Customer table
+-- =============================================
+CREATE PROCEDURE [dbo].[AddUser]
+			@UserName varchar(50)
+           ,@Password varchar(50)
+           ,@UserType varchar(50)
+		   ,@Department varchar(50)
+           ,@Description varchar(150)
+           ,@CustomerManagement bit  
+           ,@CustomerAdd bit
+           ,@CustomerModify bit
+           ,@CustomerView bit
+           ,@ProductManagement bit
+           ,@ProductAdd bit
+           ,@ProductModify bit
+           ,@ProductView bit
+           ,@POManagement bit
+           ,@POAdd bit
+           ,@POModify bit
+           ,@POView bit
+           ,@InvoiceManagement bit
+           ,@InvoiceAdd bit
+           ,@InvoiceView bit
+           ,@UserRoleManagement bit
+           ,@CustomerDetails bit
+           ,@ProductDetails bit
+           ,@PODetails bit
+           ,@InvoiceDetails bit
+		   ,@ResultValue int output
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+IF EXISTS(Select UserName from tblUserRoles WHERE UserName= @UserName)
+BEGIN 
+   SELECT @ResultValue = -1
+END
+
+ELSE
+
+BEGIN
+
+    -- Insert statements for procedure here
+	INSERT INTO [FiltrumTAXInvoice].[dbo].[tblUserRoles]
+          ([UserName]
+           ,[Password]
+           ,[UserType]
+           ,[Department]
+           ,[Description]
+           ,[CustomerManagement]
+           ,[CustomerAdd]
+           ,[CustomerModify]
+           ,[CustomerView]
+           ,[ProductManagement]
+           ,[ProductAdd]
+           ,[ProductModify]
+           ,[ProductView]
+           ,[POManagement]
+           ,[POAdd]
+           ,[POModify]
+           ,[POView]
+           ,[InvoiceManagement]
+           ,[InvoiceAdd]
+           ,[InvoiceView]
+           ,[UserRoleManagement]
+           ,[CustomerDetails]
+           ,[ProductDetails]
+           ,[PODetails]
+           ,[InvoiceDetails])
+     VALUES
+           (@UserName
+           ,@Password
+           ,@UserType
+           ,@Department
+           ,@Description
+           ,@CustomerManagement
+           ,@CustomerAdd
+           ,@CustomerModify
+           ,@CustomerView
+           ,@ProductManagement
+           ,@ProductAdd
+           ,@ProductModify
+           ,@ProductView
+           ,@POManagement
+           ,@POAdd
+           ,@POModify
+           ,@POView
+           ,@InvoiceManagement
+           ,@InvoiceAdd
+           ,@InvoiceView
+           ,@UserRoleManagement
+           ,@CustomerDetails
+           ,@ProductDetails
+           ,@PODetails
+           ,@InvoiceDetails)
+ SELECT @ResultValue = 1
+END
+END
+' 
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ModifyUser]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'
+-- =============================================
+-- Author:		Amol Choudhari
+-- Create date: 27-Mar-2008
+-- Description:	This proc will modify the USer info in User table
+-- =============================================
+CREATE PROCEDURE [dbo].[ModifyUser]
+				@UserName varchar(50)
+           ,@Password varchar(50)
+           ,@UserType varchar(50)
+		   ,@Department varchar(50)
+           ,@Description varchar(150)
+           ,@CustomerManagement bit  
+           ,@CustomerAdd bit
+           ,@CustomerModify bit
+           ,@CustomerView bit
+           ,@ProductManagement bit
+           ,@ProductAdd bit
+           ,@ProductModify bit
+           ,@ProductView bit
+           ,@POManagement bit
+           ,@POAdd bit
+           ,@POModify bit
+           ,@POView bit
+           ,@InvoiceManagement bit
+           ,@InvoiceAdd bit
+           ,@InvoiceView bit
+           ,@UserRoleManagement bit
+           ,@CustomerDetails bit
+           ,@ProductDetails bit
+           ,@PODetails bit
+           ,@InvoiceDetails bit
+		   ,@ResultValue int output
+
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+UPDATE [FiltrumTAXInvoice].[dbo].[tblUserRoles]
+   SET [UserName] = @UserName
+      ,[Password] = @Password
+      ,[UserType] = @UserType
+      ,[Department] = @Department
+      ,[Description] = @Description
+      ,[CustomerManagement] = @CustomerManagement
+      ,[CustomerAdd] = @CustomerAdd
+      ,[CustomerModify] = @CustomerModify
+      ,[CustomerView] = @CustomerView
+      ,[ProductManagement] = @ProductManagement
+      ,[ProductAdd] = @ProductAdd
+      ,[ProductModify] = @ProductModify
+      ,[ProductView] = @ProductView
+      ,[POManagement] = @POManagement
+      ,[POAdd] = @POAdd
+      ,[POModify] = @POModify
+      ,[POView] = POView
+      ,[InvoiceManagement] = @InvoiceManagement
+      ,[InvoiceAdd] = @InvoiceAdd
+      ,[InvoiceView] = @InvoiceView
+      ,[UserRoleManagement] = @UserRoleManagement
+      ,[CustomerDetails] = @CustomerDetails
+      ,[ProductDetails] = @ProductDetails
+      ,[PODetails] = @PODetails
+      ,[InvoiceDetails] = @InvoiceDetails
+ WHERE 
+	[FiltrumTAXInvoice].[dbo].[tblUserRoles].[UserName] = @UserName
+
+IF(@@ERROR = 0)
+BEGIN
+SELECT @ResultValue = 1
+END
+ELSE
+BEGIN
+SELECT @ResultValue = -1
+END
+
+END
+
+' 
+END
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_tblDuties_tblDuties]') AND parent_object_id = OBJECT_ID(N'[dbo].[tblDuties]'))
+ALTER TABLE [dbo].[tblDuties]  WITH CHECK ADD  CONSTRAINT [FK_tblDuties_tblDuties] FOREIGN KEY([DutyID])
+REFERENCES [dbo].[tblDuties] ([DutyID])

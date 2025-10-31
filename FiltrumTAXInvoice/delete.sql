@@ -1,0 +1,4 @@
+truncate table tblinvoice
+truncate table tblInvoiceHistory
+truncate table tblInvoiceItems
+truncate table tblCustomerToInvoice
