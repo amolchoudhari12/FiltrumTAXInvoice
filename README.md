@@ -69,7 +69,7 @@ Despite that, the stability and reliability of this project remain a proud highl
 **Author:** Amol  
 **Role:** Software Architect & Developer  
 **Built for:** Commercial deployment  
-**Timeline:** 2008 – 2019  
+**Timeline:** 2008 – 2018  
 **Status:** Legacy Project — Foundation of my enterprise architecture journey  
 
 ---
