@@ -99,4 +99,8 @@ FiltrumTAXInvoice/
 
 ## 🚀 Future Vision
 
-Although built years ago using classic ASP.NET and ADO.NET, this project represents the foundation on which future **modern enterprise apps** will evolve — powered by clean architecture, scalability, and intelligent automation.
+Although built years ago using classic ASP.NET and ADO.NET, this project remains a foundation for how future enterprise applications can evolve — powered by clean architecture, scalability, and automation.
+
+Though now retired, FiltrumTAXInvoice stands as a timeless example for beginner web developers — proving that a minimal, well-structured design can deliver reliability for nearly a decade without change or support.
+
+It’s a reminder that in enterprise software, simplicity and clarity often achieve what complexity cannot.
