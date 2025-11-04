@@ -16,7 +16,7 @@ This project marked a major milestone in my career — it was **conceptualized, 
 ## 🕰️ Project Journey
 
 - **Developed in:** 2008  
-- **Deployed at client site:** 2009  
+- **Deployed at client site:** 2008  
 - **Operational span:** ~10 years  
 
 After its first year of refinement, **FiltrumTAXInvoice** ran flawlessly at the client’s premises for nearly a decade.  
