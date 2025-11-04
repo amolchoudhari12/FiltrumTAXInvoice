@@ -51,7 +51,7 @@ Despite that, the stability and reliability of this project remain a proud highl
 ## 🧩 Highlights
 
 - Built **from scratch** as a **solo developer**  
-- On premises deployment and integration with a live business environment  
+- **On-premises** deployment and integration with a live business environment  
 - Each financial year, we start with **fresh data** by archiving the previous year’s data as a backup
 - Operated for **a full decade** with almost 0 maintenance
 - Served as the **seed project** that shaped my approach to scalable and maintainable software design  
